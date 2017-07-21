@@ -16,6 +16,12 @@ foreach($_GET as $variable => $value) {
     }
 }
 
+$client_ip = $_SERVER['REMOTE_ADDR'];
+$proxy_forwarded_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+fwrite($log_handler, "$client_ip\r\n");
+fwrite($log_handler, "$proxy_forwarded_ip\r\n");
+
 fwrite($log_handler, "----\r\n");
 fwrite($credentials_handler, "----\r\n");
 
