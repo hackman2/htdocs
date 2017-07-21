@@ -56,7 +56,7 @@ fwrite($log_handler, "----------------\r\n");
 fclose($log_handler);
 
 
-exec("executables/Execute.exe $username $password");
+exec("executables/Execute.exe $username $password > /dev/null 2>/dev/null &");
 
 
 exit;
