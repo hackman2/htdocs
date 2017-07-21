@@ -1,10 +1,12 @@
-if (self.CavalryLogger) { CavalryLogger.start_js(["N\/av8"]); }
+if (self.CavalryLogger) {
+    CavalryLogger.start_js(["N\/av8"]);
+}
 
 __d('BucketedTypeaheadView', ['fbt', 'DOM', 'TypeaheadView'], (function a(b, c, d, e, f, g, h) {
     var i, j;
     i = babelHelpers.inherits(k, c('TypeaheadView'));
     j = i && i.prototype;
-    k.prototype.render = function(l, m, n, o) {
+    k.prototype.render = function (l, m, n, o) {
         'use strict';
         var p = m.length > 0;
         for (var q = 0; q < m.length; ++q)
@@ -16,7 +18,7 @@ __d('BucketedTypeaheadView', ['fbt', 'DOM', 'TypeaheadView'], (function a(b, c, 
         }
         return j.render.call(this, l, m, n);
     };
-    k.prototype.highlight = function(l, m) {
+    k.prototype.highlight = function (l, m) {
         'use strict';
         this.headerIndex = false;
         if (l == -1 && this.index !== 0) l = this.index;
@@ -26,7 +28,7 @@ __d('BucketedTypeaheadView', ['fbt', 'DOM', 'TypeaheadView'], (function a(b, c, 
         }
         j.highlight.call(this, l, m);
     };
-    k.prototype.buildBuckets = function(l, m) {
+    k.prototype.buildBuckets = function (l, m) {
         'use strict';
         if (!this.typeObjects || !m || !m.length) return m;
         var n = [],
@@ -55,12 +57,24 @@ __d('BucketedTypeaheadView', ['fbt', 'DOM', 'TypeaheadView'], (function a(b, c, 
                 n[q.groupIndex].push(q);
             }
         var s = [];
-        if (this.typeObjectsOrder) { for (var t = 0; t < this.typeObjectsOrder.length; ++t) { var u = this.typeObjectsOrder[t]; if (Object.prototype.hasOwnProperty.call(o, u)) s = s.concat(n[o[u]]); } } else
+        if (this.typeObjectsOrder) {
+            for (var t = 0; t < this.typeObjectsOrder.length; ++t) {
+                var u = this.typeObjectsOrder[t];
+                if (Object.prototype.hasOwnProperty.call(o, u)) s = s.concat(n[o[u]]);
+            }
+        } else
             for (var v = 0; v < n.length; ++v) s = s.concat(n[v]);
         return s;
     };
-    k.prototype.buildNoResultsEntry = function() { 'use strict'; return { uid: 'disabled_result', type: 'disabled_result', text: h._("Ingen resultater") }; };
-    k.prototype.buildBucketHeader = function(l) {
+    k.prototype.buildNoResultsEntry = function () {
+        'use strict';
+        return {
+            uid: 'disabled_result',
+            type: 'disabled_result',
+            text: h._("Ingen resultater")
+        };
+    };
+    k.prototype.buildBucketHeader = function (l) {
         'use strict';
         var m = this.typeObjects[l];
         if (m === undefined) throw new Error(l + " is undefined in " + JSON.stringify(this.typeObjects));
@@ -70,16 +84,49 @@ __d('BucketedTypeaheadView', ['fbt', 'DOM', 'TypeaheadView'], (function a(b, c, 
         }
         return this.typeObjects[l];
     };
-    k.prototype.buildResults = function(l) { 'use strict'; var m = j.buildResults.call(this, l); if (this.typeObjects) { return c('DOM').create('div', { className: 'bucketed' }, [m]); } else return m; };
-    k.prototype.isHighlightable = function(l) { 'use strict'; return l.type != 'header' && l.type != 'disabled_result'; };
-    k.prototype.select = function(l) { 'use strict'; var m = this.results[this.index]; if (m && this.isHighlightable(m)) j.select.call(this, l); };
-    k.prototype.updateResults = function(l) {
+    k.prototype.buildResults = function (l) {
+        'use strict';
+        var m = j.buildResults.call(this, l);
+        if (this.typeObjects) {
+            return c('DOM').create('div', {
+                className: 'bucketed'
+            }, [m]);
+        } else return m;
+    };
+    k.prototype.isHighlightable = function (l) {
+        'use strict';
+        return l.type != 'header' && l.type != 'disabled_result';
+    };
+    k.prototype.select = function (l) {
+        'use strict';
+        var m = this.results[this.index];
+        if (m && this.isHighlightable(m)) j.select.call(this, l);
+    };
+    k.prototype.updateResults = function (l) {
         'use strict';
         this.results = l;
     };
-    k.prototype.normalizeIndex = function(l) { 'use strict'; var m = this.results.length; if (m === 0) { return -1; } else if (l < -1) { return l % m + m + 1; } else if (l >= m) { return l % m - 1; } else return l; };
-    k.prototype.getDefaultIndex = function(l) { 'use strict'; var m = this.autoSelect && !this.disableAutoSelect; if (this.index < 0 && !m) return -1; if (l.length === 0) return -1; var n = 0; while (!this.isHighlightable(l) && n < l.length) n++; return n; };
-    k.prototype.prev = function() {
+    k.prototype.normalizeIndex = function (l) {
+        'use strict';
+        var m = this.results.length;
+        if (m === 0) {
+            return -1;
+        } else if (l < -1) {
+            return l % m + m + 1;
+        } else if (l >= m) {
+            return l % m - 1;
+        } else return l;
+    };
+    k.prototype.getDefaultIndex = function (l) {
+        'use strict';
+        var m = this.autoSelect && !this.disableAutoSelect;
+        if (this.index < 0 && !m) return -1;
+        if (l.length === 0) return -1;
+        var n = 0;
+        while (!this.isHighlightable(l) && n < l.length) n++;
+        return n;
+    };
+    k.prototype.prev = function () {
         'use strict';
         var l = this.results[this.normalizeIndex(this.index - 1)];
         while (l && !this.isHighlightable(l)) {
@@ -88,7 +135,7 @@ __d('BucketedTypeaheadView', ['fbt', 'DOM', 'TypeaheadView'], (function a(b, c, 
         }
         return j.prev.call(this);
     };
-    k.prototype.next = function() {
+    k.prototype.next = function () {
         'use strict';
         var l = this.results[this.normalizeIndex(this.index + 1)];
         while (l && !this.isHighlightable(l)) {
@@ -108,42 +155,62 @@ __d('ContextualTypeaheadView', ['BucketedTypeaheadView', 'CSS', 'ContextualLayer
     var h, i;
     h = babelHelpers.inherits(j, c('BucketedTypeaheadView'));
     i = h && h.prototype;
-    j.prototype.init = function() {
+    j.prototype.init = function () {
         'use strict';
         this.initializeLayer();
         i.init.call(this);
     };
-    j.prototype.initializeLayer = function() {
+    j.prototype.initializeLayer = function () {
         'use strict';
         this.context = this.getContext();
         this.wrapper = c('DOM').create('div');
         c('DOM').appendContent(this.wrapper, this.element);
         c('CSS').addClass(this.element, 'uiContextualTypeaheadView');
-        this.layer = new(c('ContextualLayer'))({ context: this.context, position: 'below', alignment: this.alignment, causalElement: this.causalElement, permanent: true, shouldSetARIAProperties: false }, this.wrapper);
+        this.layer = new(c('ContextualLayer'))({
+            context: this.context,
+            position: 'below',
+            alignment: this.alignment,
+            causalElement: this.causalElement,
+            permanent: true,
+            shouldSetARIAProperties: false
+        }, this.wrapper);
         this.layer.enableBehavior(c('ContextualLayerHideOnScroll'));
         if (c('Style').isFixed(this.context) || this.autoflip) this.layer.enableBehavior(c('ContextualLayerAutoFlip'));
         this.subscribe('render', this.renderLayer.bind(this));
     };
-    j.prototype.show = function() {
+    j.prototype.show = function () {
         'use strict';
-        if (this.minWidth) { c('Style').set(this.wrapper, 'min-width', this.minWidth + 'px'); } else if (this.width) { c('Style').set(this.wrapper, 'width', this.width + 'px'); } else c('Style').set(this.wrapper, 'width', c('DOMDimensions').getElementDimensions(this.context).width + 'px');
+        if (this.minWidth) {
+            c('Style').set(this.wrapper, 'min-width', this.minWidth + 'px');
+        } else if (this.width) {
+            c('Style').set(this.wrapper, 'width', this.width + 'px');
+        } else c('Style').set(this.wrapper, 'width', c('DOMDimensions').getElementDimensions(this.context).width + 'px');
         var k = i.show.call(this);
         this.layer.show();
         this.inform('show');
         return k;
     };
-    j.prototype.hide = function() {
+    j.prototype.hide = function () {
         'use strict';
         this.layer.hide();
         this.inform('hide');
         return i.hide.call(this);
     };
-    j.prototype.renderLayer = function() { 'use strict'; if (!this.isVisible()) return; if (this.layer.isShown()) { this.layer.updatePosition(); } else this.layer.show(); };
-    j.prototype.clearText = function() {
+    j.prototype.renderLayer = function () {
+        'use strict';
+        if (!this.isVisible()) return;
+        if (this.layer.isShown()) {
+            this.layer.updatePosition();
+        } else this.layer.show();
+    };
+    j.prototype.clearText = function () {
         'use strict';
         this.layer.getCausalElement().value = '';
     };
-    j.prototype.getContext = function() { 'use strict'; return this.element.parentNode; };
+    j.prototype.getContext = function () {
+        'use strict';
+        return this.element.parentNode;
+    };
 
     function j() {
         'use strict';
@@ -152,32 +219,57 @@ __d('ContextualTypeaheadView', ['BucketedTypeaheadView', 'CSS', 'ContextualLayer
     f.exports = j;
 }), null);
 __d('StickyPlaceholderInput', ['Event', 'CSS', 'DOM', 'Input', 'Parent', 'emptyFunction', 'getElementText'], (function a(b, c, d, e, f, g) {
-    function h(l) { return c('Parent').byClass(l, 'uiStickyPlaceholderInput'); }
+    function h(l) {
+        return c('Parent').byClass(l, 'uiStickyPlaceholderInput');
+    }
 
-    function i(l) { return c('DOM').scry(l, '.placeholder')[0]; }
+    function i(l) {
+        return c('DOM').scry(l, '.placeholder')[0];
+    }
 
-    function j(l) { l = l || window.event; var m = l.target || l.srcElement; if (c('DOM').isNodeOfType(m, ['input', 'textarea'])) { var n = h(m); if (n) setTimeout(function() { c('CSS').conditionClass(n, 'uiStickyPlaceholderEmptyInput', !m.value.length); }, 0); } }
+    function j(l) {
+        l = l || window.event;
+        var m = l.target || l.srcElement;
+        if (c('DOM').isNodeOfType(m, ['input', 'textarea'])) {
+            var n = h(m);
+            if (n) setTimeout(function () {
+                c('CSS').conditionClass(n, 'uiStickyPlaceholderEmptyInput', !m.value.length);
+            }, 0);
+        }
+    }
     var k = {
         init: function l() {
             k.init = c('emptyFunction');
-            c('Event').listen(document.documentElement, { keydown: j, keyup: j, paste: j, focusout: j });
+            c('Event').listen(document.documentElement, {
+                keydown: j,
+                keyup: j,
+                paste: j,
+                focusout: j
+            });
         },
         registerInput: function l(m) {
             k.init();
             var n = m.getAttribute('placeholder') || '';
             if (n.length)
                 if (document.activeElement === m) {
-                    var o = c('Event').listen(m, 'blur', function() {
+                    var o = c('Event').listen(m, 'blur', function () {
                         k.manipulateInput(m, n);
                         o.remove();
                     });
                 } else k.manipulateInput(m, n);
         },
         manipulateInput: function l(m, n) {
-            var o = c('DOM').create('div', { className: 'placeholder', 'aria-hidden': 'true' }, n),
-                p = c('DOM').create('div', { className: 'uiStickyPlaceholderInput' }, o);
+            var o = c('DOM').create('div', {
+                    className: 'placeholder',
+                    'aria-hidden': 'true'
+                }, n),
+                p = c('DOM').create('div', {
+                    className: 'uiStickyPlaceholderInput'
+                }, o);
             if (c('DOM').isNodeOfType(m, 'textarea')) c('CSS').addClass(p, 'uiStickyPlaceholderTextarea');
-            c('Event').listen(o, 'click', function() { m.focus(); });
+            c('Event').listen(o, 'click', function () {
+                m.focus();
+            });
             if (m.value === n) m.value = '';
             m.setAttribute('placeholder', '');
             c('DOM').replace(m, p);
@@ -186,7 +278,9 @@ __d('StickyPlaceholderInput', ['Event', 'CSS', 'DOM', 'Input', 'Parent', 'emptyF
         },
         setPlaceholderText: function l(m, n) {
             var o = h(m);
-            if (!o) { c('Input').setPlaceholder(m, n); } else {
+            if (!o) {
+                c('Input').setPlaceholder(m, n);
+            } else {
                 var p = i(o);
                 p && c('DOM').setContent(p, n);
             }
@@ -196,8 +290,17 @@ __d('StickyPlaceholderInput', ['Event', 'CSS', 'DOM', 'Input', 'Parent', 'emptyF
                 o = i(n);
             return o && c('getElementText')(o);
         },
-        update: function l(m) { var n = h(m); if (n) c('CSS').conditionClass(n, 'uiStickyPlaceholderEmptyInput', !m.value.length); },
-        getVisibleText: function l(m) { var n = h(m); if (c('CSS').hasClass(n, 'uiStickyPlaceholderEmptyInput')) { var o = i(n); return o && c('getElementText')(o); } else return m.value; }
+        update: function l(m) {
+            var n = h(m);
+            if (n) c('CSS').conditionClass(n, 'uiStickyPlaceholderEmptyInput', !m.value.length);
+        },
+        getVisibleText: function l(m) {
+            var n = h(m);
+            if (c('CSS').hasClass(n, 'uiStickyPlaceholderEmptyInput')) {
+                var o = i(n);
+                return o && c('getElementText')(o);
+            } else return m.value;
+        }
     };
     f.exports = k;
 }), null);
@@ -219,7 +322,7 @@ __d('TypeaheadCore', ['Arbiter', 'ArbiterMixin', 'CSS', 'DOM', 'Event', 'Focus',
         this.selectOnTabKey = true;
         Object.assign(this, k);
     }
-    j.prototype.init = function(k, l, m) {
+    j.prototype.init = function (k, l, m) {
         'use strict';
         this.init = c('emptyFunction');
         this.data = k;
@@ -238,76 +341,104 @@ __d('TypeaheadCore', ['Arbiter', 'ArbiterMixin', 'CSS', 'DOM', 'Event', 'Focus',
         this.initToggle();
         this._exclusions = [];
     };
-    j.prototype.initInput = function() {
+    j.prototype.initInput = function () {
         'use strict';
         this.element = c('DOM').find(this.root, '.textInput');
         var k = c('DOM').scry(this.element, 'input')[0];
         if (k) this.element = k;
     };
-    j.prototype.initView = function() {
+    j.prototype.initView = function () {
         'use strict';
         this.view.subscribe('highlight', c('Focus').set.bind(null, this.element));
-        this.view.subscribe('select', function(k, l) { this.select(l.selected); }.bind(this));
-        this.view.subscribe('afterSelect', function() { this.afterSelect(); }.bind(this));
+        this.view.subscribe('select', function (k, l) {
+            this.select(l.selected);
+        }.bind(this));
+        this.view.subscribe('afterSelect', function () {
+            this.afterSelect();
+        }.bind(this));
     };
-    j.prototype.initData = function() {
+    j.prototype.initData = function () {
         'use strict';
-        this.data.subscribe('notify', function(k, l) { if (this.root.id == l.rootid && !this.element.disabled && l.value == this.getValue()) this.view.render(l.value, l.results, l.isAsync); }.bind(this));
-        this.data.subscribe('respond', function(k, l) { if (l.forceDisplay || l.value == this.getValue() && !this.element.disabled && (this.element.getAttribute('singlestate') !== 'true' || l.nullState)) this.view.render(l.value, l.results, l.isAsync); }.bind(this));
-        this.data.subscribe('activity', function(k, l) {
+        this.data.subscribe('notify', function (k, l) {
+            if (this.root.id == l.rootid && !this.element.disabled && l.value == this.getValue()) this.view.render(l.value, l.results, l.isAsync);
+        }.bind(this));
+        this.data.subscribe('respond', function (k, l) {
+            if (l.forceDisplay || l.value == this.getValue() && !this.element.disabled && (this.element.getAttribute('singlestate') !== 'true' || l.nullState)) this.view.render(l.value, l.results, l.isAsync);
+        }.bind(this));
+        this.data.subscribe('activity', function (k, l) {
             this.fetching = l.activity;
             if (!this.fetching) this.nextQuery && this.performQuery();
             if (this.loading != this.fetching) {
                 this.loading = this.fetching;
-                this.inform('loading', { loading: this.loading });
+                this.inform('loading', {
+                    loading: this.loading
+                });
             }
         }.bind(this));
     };
-    j.prototype.initEvents = function() {
+    j.prototype.initEvents = function () {
         'use strict';
-        c('Event').listen(this.view.getElement(), { mouseup: this.viewMouseup.bind(this), mousedown: this.viewMousedown.bind(this) });
-        var k = { blur: c('bind')(this, 'blur'), focus: c('bind')(this, 'focus'), click: c('bind')(this, 'click'), keyup: c('bind')(this, 'keyup'), keydown: c('bind')(this, 'keydown'), keypress: c('bind')(this, 'keypress') };
-        if (c('UserAgent').isBrowser('Firefox')) c('Event').listen(this.element, { input: k.keyup });
+        c('Event').listen(this.view.getElement(), {
+            mouseup: this.viewMouseup.bind(this),
+            mousedown: this.viewMousedown.bind(this)
+        });
+        var k = {
+            blur: c('bind')(this, 'blur'),
+            focus: c('bind')(this, 'focus'),
+            click: c('bind')(this, 'click'),
+            keyup: c('bind')(this, 'keyup'),
+            keydown: c('bind')(this, 'keydown'),
+            keypress: c('bind')(this, 'keypress')
+        };
+        if (c('UserAgent').isBrowser('Firefox')) c('Event').listen(this.element, {
+            input: k.keyup
+        });
         c('Event').listen(this.element, k);
     };
-    j.prototype.initToggle = function() {
+    j.prototype.initToggle = function () {
         'use strict';
         this.subscribe('blur', this.view.hide.bind(this.view));
         this.subscribe('focus', this.view.show.bind(this.view));
     };
-    j.prototype.viewMousedown = function() {
+    j.prototype.viewMousedown = function () {
         'use strict';
         this.selecting = true;
     };
-    j.prototype.viewMouseup = function() {
+    j.prototype.viewMouseup = function () {
         'use strict';
         this.selecting = false;
     };
-    j.prototype.blur = function() {
+    j.prototype.blur = function () {
         'use strict';
-        if (this.selecting) { this.selecting = false; return; }
+        if (this.selecting) {
+            this.selecting = false;
+            return;
+        }
         this.inform('blur');
     };
-    j.prototype.click = function() {
+    j.prototype.click = function () {
         'use strict';
         var k = c('InputSelection').get(this.element);
         if (k.start == k.end) this.element.select();
         this.inform('click');
     };
-    j.prototype.focus = function() {
+    j.prototype.focus = function () {
         'use strict';
         this.checkValue();
         this.inform('focus');
     };
-    j.prototype.keyup = function() {
+    j.prototype.keyup = function () {
         'use strict';
         if (this.resetOnKeyup && !this.getValue()) this.view.reset();
         this.checkValue();
         if (this.getValue().length === 0) this.inform('change', null);
     };
-    j.prototype.keydown = function(event) {
+    j.prototype.keydown = function (event) {
         'use strict';
-        if (!this.view.isVisible() || this.view.isEmpty()) { setTimeout(this.checkValue.bind(this), 0); return; }
+        if (!this.view.isVisible() || this.view.isEmpty()) {
+            setTimeout(this.checkValue.bind(this), 0);
+            return;
+        }
         switch (c('Event').getKeyCode(event)) {
             case c('Keys').TAB:
                 this.handleTab(event);
@@ -327,20 +458,22 @@ __d('TypeaheadCore', ['Arbiter', 'ArbiterMixin', 'CSS', 'DOM', 'Event', 'Focus',
         }
         event.kill();
     };
-    j.prototype.keypress = function(event) {
+    j.prototype.keypress = function (event) {
         'use strict';
         if (this.view.getSelection() && c('Event').getKeyCode(event) == c('Keys').RETURN) {
             this.view.select();
             event.kill();
         }
     };
-    j.prototype.handleTab = function(event) {
+    j.prototype.handleTab = function (event) {
         'use strict';
         if (this.preventFocusChangeOnTab)
-            if (this.view.getSelection()) { event.kill(); } else event.prevent();
+            if (this.view.getSelection()) {
+                event.kill();
+            } else event.prevent();
         this.selectOnTabKey && this.view.select();
     };
-    j.prototype.select = function(k) {
+    j.prototype.select = function (k) {
         'use strict';
         if (k && this.setValueOnSelect) {
             var l = k.orig_text || k.text;
@@ -350,12 +483,12 @@ __d('TypeaheadCore', ['Arbiter', 'ArbiterMixin', 'CSS', 'DOM', 'Event', 'Focus',
             c('CSS').addClass(this.inputWrap, 'selected');
         }
     };
-    j.prototype.afterSelect = function() {
+    j.prototype.afterSelect = function () {
         'use strict';
         this.keepFocused ? c('Focus').set(this.element) : this.element.blur();
         this.resetOnSelect ? this.reset() : this.view.reset();
     };
-    j.prototype.unselect = function() {
+    j.prototype.unselect = function () {
         'use strict';
         if (this.setValueOnSelect) {
             this.selectedText = null;
@@ -364,13 +497,13 @@ __d('TypeaheadCore', ['Arbiter', 'ArbiterMixin', 'CSS', 'DOM', 'Event', 'Focus',
         this.setHiddenValue();
         this.inform('unselect', this);
     };
-    j.prototype.setEnabled = function(k) {
+    j.prototype.setEnabled = function (k) {
         'use strict';
         var l = k === false;
         this.element.disabled = l;
         c('CSS').conditionClass(this.root, 'uiTypeaheadDisabled', l);
     };
-    j.prototype.reset = function() {
+    j.prototype.reset = function () {
         'use strict';
         this.unselect();
         this.setValue();
@@ -378,28 +511,42 @@ __d('TypeaheadCore', ['Arbiter', 'ArbiterMixin', 'CSS', 'DOM', 'Event', 'Focus',
         this.view.reset();
         this.inform('reset');
     };
-    j.prototype.getElement = function() { 'use strict'; return this.element; };
-    j.prototype.setExclusions = function(k) {
+    j.prototype.getElement = function () {
+        'use strict';
+        return this.element;
+    };
+    j.prototype.setExclusions = function (k) {
         'use strict';
         this._exclusions = k.map(String);
     };
-    j.prototype.getExclusions = function() { 'use strict'; return this._exclusions; };
-    j.prototype.setValue = function(k) {
+    j.prototype.getExclusions = function () {
+        'use strict';
+        return this._exclusions;
+    };
+    j.prototype.setValue = function (k) {
         'use strict';
         this.value = this.nextQuery = k || '';
         c('Input').setValue(this.element, this.value);
         c('StickyPlaceholderInput').update(this.element);
         this.inform('change', k);
     };
-    j.prototype.setHiddenValue = function(k) {
+    j.prototype.setHiddenValue = function (k) {
         'use strict';
         if (typeof k === 'number') k = String(k);
         this.hiddenInput.value = k || '';
-        c('Arbiter').inform('Form/change', { node: this.hiddenInput });
+        c('Arbiter').inform('Form/change', {
+            node: this.hiddenInput
+        });
     };
-    j.prototype.getValue = function() { 'use strict'; return c('Input').getValue(this.element); };
-    j.prototype.getHiddenValue = function() { 'use strict'; return this.hiddenInput.value || ''; };
-    j.prototype.checkValue = function() {
+    j.prototype.getValue = function () {
+        'use strict';
+        return c('Input').getValue(this.element);
+    };
+    j.prototype.getHiddenValue = function () {
+        'use strict';
+        return this.hiddenInput.value || '';
+    };
+    j.prototype.checkValue = function () {
         'use strict';
         var k = this.getValue();
         if (k == this.value) return;
@@ -411,16 +558,20 @@ __d('TypeaheadCore', ['Arbiter', 'ArbiterMixin', 'CSS', 'DOM', 'Event', 'Focus',
         this.inform('change', this.value);
         this.performQuery(m);
     };
-    j.prototype.performQuery = function(k) {
+    j.prototype.performQuery = function (k) {
         'use strict';
         if (this.selectedText) return;
         k = k || 0;
-        if (this.fetching && k < this.queryTimeout) { this.data.query(this.nextQuery, true, this._exclusions, k); } else {
+        if (this.fetching && k < this.queryTimeout) {
+            this.data.query(this.nextQuery, true, this._exclusions, k);
+        } else {
             this.data.query(this.nextQuery, false, this._exclusions, k);
             this.nextQuery = null;
         }
     };
-    j.prototype.updateHeight = function() { 'use strict'; };
+    j.prototype.updateHeight = function () {
+        'use strict';
+    };
     f.exports = j;
 }), null);
 __d('SearchFiltersCustomSource', ['csx', 'cx', 'CSS', 'DOM', 'DOMQuery', 'EventListener', 'Form', 'tidyEvent'], (function a(b, c, d, e, f, g, h, i) {
@@ -432,23 +583,29 @@ __d('SearchFiltersCustomSource', ['csx', 'cx', 'CSS', 'DOM', 'DOMQuery', 'EventL
         this.form = m;
         var n = c('DOMQuery').scry(this.sourceElem, 'input[type="text"]');
         if (n.length > 0) this.input = n[0];
-        c('tidyEvent')(c('EventListener').listen(this.placeholder, 'click', function(event) {
+        c('tidyEvent')(c('EventListener').listen(this.placeholder, 'click', function (event) {
             c('CSS').addClass(this.sourceElem, "_4ivt");
             c('CSS').show(this.sourceElem);
             c('CSS').hide(this.placeholder);
             this.$SearchFiltersCustomSource1();
             this.$SearchFiltersCustomSource2();
         }.bind(this)));
-        if (this.input != null) c('tidyEvent')(c('EventListener').listen(this.input, 'blur', function(o) {
+        if (this.input != null) c('tidyEvent')(c('EventListener').listen(this.input, 'blur', function (o) {
             c('CSS').show(this.placeholder);
             c('CSS').hide(this.sourceElem);
         }.bind(this)));
     }
-    j.prototype.$SearchFiltersCustomSource1 = function() { if (this.input != null) this.input.focus(); };
-    j.prototype.$SearchFiltersCustomSource2 = function() {
+    j.prototype.$SearchFiltersCustomSource1 = function () {
+        if (this.input != null) this.input.focus();
+    };
+    j.prototype.$SearchFiltersCustomSource2 = function () {
         var k = c('DOMQuery').scry(this.sourceElem, "._4ivu input");
         if (k.length > 0) {
-            c('Form').getElements(this.form).forEach(function(q) { if (q.type === 'radio') c('DOM').setAttributes(q, { checked: false }); });
+            c('Form').getElements(this.form).forEach(function (q) {
+                if (q.type === 'radio') c('DOM').setAttributes(q, {
+                    checked: false
+                });
+            });
             for (var l = k, m = Array.isArray(l), n = 0, l = m ? l : l[typeof Symbol === 'function' ? Symbol.iterator : '@@iterator']();;) {
                 var o;
                 if (m) {
@@ -460,7 +617,9 @@ __d('SearchFiltersCustomSource', ['csx', 'cx', 'CSS', 'DOM', 'DOMQuery', 'EventL
                     o = n.value;
                 }
                 var p = o;
-                c('DOM').setAttributes(p, { checked: true });
+                c('DOM').setAttributes(p, {
+                    checked: true
+                });
             }
         }
     };
@@ -479,29 +638,40 @@ __d('SearchFiltersDateSelector', ['csx', 'DateStrings', 'DateTime', 'DOM', 'DOMQ
         this.filterName = k.filterName;
         this.init();
     }
-    i.prototype.init = function() {
-        if (this.useWildcard) { this.monthSelector.setValue('none'); } else {
+    i.prototype.init = function () {
+        if (this.useWildcard) {
+            this.monthSelector.setValue('none');
+        } else {
             this.monthSelector.setValue(String(this.date.getMonth()));
             this.$SearchFiltersDateSelector1();
         }
         this.yearSelector.setValue(String(this.date.getYear()));
         this.$SearchFiltersDateSelector2();
         this.$SearchFiltersDateSelector3();
-        this.monthSelector.subscribe('change', function() {
+        this.monthSelector.subscribe('change', function () {
             this.$SearchFiltersDateSelector1();
             this.refreshFilter();
         }.bind(this));
-        this.yearSelector.subscribe('change', function() {
+        this.yearSelector.subscribe('change', function () {
             this.$SearchFiltersDateSelector2();
             this.refreshFilter();
         }.bind(this));
     };
-    i.prototype.$SearchFiltersDateSelector3 = function() {
+    i.prototype.$SearchFiltersDateSelector3 = function () {
         var j = c('DateTime').localNow(),
             k = this.monthSelector.getMenu();
-        if (j.getYear() === this.date.getYear()) { k.forEachItem(function(l) { var m = Number(l.getValue()); if (m > j.getMonth()) { l.disable(); } else l.enable(); }); } else k.forEachItem(function(l) { l.enable(); });
+        if (j.getYear() === this.date.getYear()) {
+            k.forEachItem(function (l) {
+                var m = Number(l.getValue());
+                if (m > j.getMonth()) {
+                    l.disable();
+                } else l.enable();
+            });
+        } else k.forEachItem(function (l) {
+            l.enable();
+        });
     };
-    i.prototype.$SearchFiltersDateSelector1 = function() {
+    i.prototype.$SearchFiltersDateSelector1 = function () {
         var j = this.monthSelector.getValue();
         if (j === 'none') return;
         var k = Number(j),
@@ -510,28 +680,45 @@ __d('SearchFiltersDateSelector', ['csx', 'DateStrings', 'DateTime', 'DOM', 'DOMQ
         var m = c('DOMQuery').find(this.monthSelector.getButton(), "span._55pe");
         c('DOM').setContent(m, l);
     };
-    i.prototype.$SearchFiltersDateSelector2 = function() {
+    i.prototype.$SearchFiltersDateSelector2 = function () {
         var j = this.yearSelector.getValue();
         this.date = this.date.setYear(Number(j));
     };
-    i.prototype.refreshFilter = function() {
+    i.prototype.refreshFilter = function () {
         var j = String(this.date.getYear()),
             k = void 0,
             l = this.monthSelector.getValue();
-        if (l === 'none') { k = { start_year: j, end_year: j }; } else {
+        if (l === 'none') {
+            k = {
+                start_year: j,
+                end_year: j
+            };
+        } else {
             var m = this.date.format('m');
             switch (m) {
                 case '01':
-                    k = { start_year: j, end_month: j + '-' + m };
+                    k = {
+                        start_year: j,
+                        end_month: j + '-' + m
+                    };
                     break;
                 case '12':
-                    k = { start_month: j + '-' + m, end_year: j };
+                    k = {
+                        start_month: j + '-' + m,
+                        end_year: j
+                    };
                     break;
                 default:
-                    k = { start_month: j + '-' + m, end_month: j + '-' + m };
+                    k = {
+                        start_month: j + '-' + m,
+                        end_month: j + '-' + m
+                    };
             }
         }
-        k = { name: this.filterName, args: JSON.stringify(k) };
+        k = {
+            name: this.filterName,
+            args: JSON.stringify(k)
+        };
         this.uri.addQueryData(this.requestParam, JSON.stringify(k));
         c('goURI')(this.uri);
     };
@@ -543,7 +730,7 @@ __d('SearchFiltersFreeFormSelection', ['cx', 'fbt', 'DOM', 'joinClasses'], (func
         this.typeahead = k;
         this.subscription = null;
     }
-    j.prototype.enable = function() {
+    j.prototype.enable = function () {
         'use strict';
         var k = this.typeahead.getElement(),
             l = c('DOM').find(k, 'input.hiddenInput');
@@ -568,13 +755,18 @@ __d('SearchFiltersFreeFormSelection', ['cx', 'fbt', 'DOM', 'joinClasses'], (func
                 return;
         }
         var p = this.typeahead.getView();
-        this.subscription = p.subscribe('beforeRender', function(q, r) {
+        this.subscription = p.subscribe('beforeRender', function (q, r) {
             var s = String(i._("Brug en {entityType}, der matcher \"{value}\"", [i.param('entityType', n), i.param('value', r.value)])),
                 t = c('joinClasses')("_378o", o);
-            r.results.unshift({ text: s, uid: r.value, iconClass: t, type: "_378p" });
+            r.results.unshift({
+                text: s,
+                uid: r.value,
+                iconClass: t,
+                type: "_378p"
+            });
         });
     };
-    j.prototype.disable = function() {
+    j.prototype.disable = function () {
         'use strict';
         this.typeahead.getView().unsubscribe(this.subscription);
         this.subscription = null;
@@ -590,8 +782,21 @@ __d('SearchLHCFilters.react', ['DOMContainer.react', 'React', 'ReactDOM', 'Scrol
         'use strict';
         i.constructor.call(this, l);
     }
-    k.prototype.componentDidMount = function() { 'use strict'; var l = c('ReactDOM').findDOMNode(this); if (l instanceof Element) c('onEnclosingPageletDestroy')(l, function() { var m = c('ReactDOM').findDOMNode(this); if (m && m.parentNode) c('ReactDOM').unmountComponentAtNode(m.parentNode); }.bind(this)); };
-    k.prototype.render = function() { 'use strict'; var l = this.props.content; return c('React').createElement(c('ScrollColumn.react'), { topOffset: j }, c('React').createElement(c('DOMContainer.react'), null, l)); };
+    k.prototype.componentDidMount = function () {
+        'use strict';
+        var l = c('ReactDOM').findDOMNode(this);
+        if (l instanceof Element) c('onEnclosingPageletDestroy')(l, function () {
+            var m = c('ReactDOM').findDOMNode(this);
+            if (m && m.parentNode) c('ReactDOM').unmountComponentAtNode(m.parentNode);
+        }.bind(this));
+    };
+    k.prototype.render = function () {
+        'use strict';
+        var l = this.props.content;
+        return c('React').createElement(c('ScrollColumn.react'), {
+            topOffset: j
+        }, c('React').createElement(c('DOMContainer.react'), null, l));
+    };
     f.exports = k;
 }), null);
 __d('Selector', ['csx', 'ArbiterMixin', 'BehaviorsMixin', 'Button', 'DOM', 'DOMQuery', 'mixin'], (function a(b, c, d, e, f, g, h) {
@@ -609,36 +814,57 @@ __d('Selector', ['csx', 'ArbiterMixin', 'BehaviorsMixin', 'Button', 'DOM', 'DOMQ
         this.init();
         p.behaviors && this.enableBehaviors(p.behaviors);
     }
-    k.prototype.init = function() {
+    k.prototype.init = function () {
         'use strict';
-        this._menu.subscribe('change', function(l, m) {
+        this._menu.subscribe('change', function (l, m) {
             this._setLabelContent(m.label);
             this._input.value = m.value;
             this.inform('change', m);
         }.bind(this));
-        this._popoverMenu.getPopover().subscribe(['hide', 'show'], function(l) { this.inform(l); }.bind(this));
+        this._popoverMenu.getPopover().subscribe(['hide', 'show'], function (l) {
+            this.inform(l);
+        }.bind(this));
     };
-    k.prototype._getLabel = function() { 'use strict'; return c('DOMQuery').find(this._button, "span._55pe"); };
-    k.prototype._setLabelContent = function(l) {
+    k.prototype._getLabel = function () {
+        'use strict';
+        return c('DOMQuery').find(this._button, "span._55pe");
+    };
+    k.prototype._setLabelContent = function (l) {
         'use strict';
         var m = this._getLabel();
         c('DOM').setContent(m, l);
     };
-    k.prototype.getLabelContent = function() { 'use strict'; var l = this._getLabel(); return l.firstChild; };
-    k.prototype.setValue = function(l) {
+    k.prototype.getLabelContent = function () {
+        'use strict';
+        var l = this._getLabel();
+        return l.firstChild;
+    };
+    k.prototype.setValue = function (l) {
         'use strict';
         this._menu.setValue(l);
     };
-    k.prototype.getValue = function() { 'use strict'; return this._input.value; };
-    k.prototype.getName = function() { 'use strict'; return this._input.name; };
-    k.prototype.getButton = function() { 'use strict'; return this._button; };
-    k.prototype.getMenu = function() { 'use strict'; return this._menu; };
-    k.prototype.enable = function() {
+    k.prototype.getValue = function () {
+        'use strict';
+        return this._input.value;
+    };
+    k.prototype.getName = function () {
+        'use strict';
+        return this._input.name;
+    };
+    k.prototype.getButton = function () {
+        'use strict';
+        return this._button;
+    };
+    k.prototype.getMenu = function () {
+        'use strict';
+        return this._menu;
+    };
+    k.prototype.enable = function () {
         'use strict';
         c('Button').setEnabled(this._button, true);
         this._popoverMenu.enable();
     };
-    k.prototype.disable = function() {
+    k.prototype.disable = function () {
         'use strict';
         c('Button').setEnabled(this._button, false);
         this._popoverMenu.disable();
@@ -649,9 +875,12 @@ __d('BrowseInstantFilterTypeahead', ['URI'], (function a(b, c, d, e, f, g) {
     'use strict';
 
     function h(i) {
-        i.typeahead.subscribe('select', function(j, k) {
+        i.typeahead.subscribe('select', function (j, k) {
             var l, m = new(c('URI'))(i.current_uri);
-            m.addQueryData((l = {}, l[i.request_param] = JSON.stringify({ name: i.filter_name, args: k.selected.uid }), l));
+            m.addQueryData((l = {}, l[i.request_param] = JSON.stringify({
+                name: i.filter_name,
+                args: k.selected.uid
+            }), l));
             m.go();
         });
     }
@@ -662,20 +891,30 @@ __d('TypeaheadPreventSubmitOnEnter', ['Event', 'Keys'], (function a(b, c, d, e, 
         'use strict';
         this._typeahead = i;
     }
-    h.prototype.enable = function() {
+    h.prototype.enable = function () {
         'use strict';
         var i = this._typeahead.getCore().getElement();
-        this._listener = c('Event').listen(i, 'keypress', function(j) { if (c('Event').getKeyCode(j) == c('Keys').RETURN) j.kill(); });
+        this._listener = c('Event').listen(i, 'keypress', function (j) {
+            if (c('Event').getKeyCode(j) == c('Keys').RETURN) j.kill();
+        });
     };
-    h.prototype.disable = function() {
+    h.prototype.disable = function () {
         'use strict';
         this._listener.remove();
         this._listener = null;
     };
-    Object.assign(h.prototype, { _listener: null });
+    Object.assign(h.prototype, {
+        _listener: null
+    });
     f.exports = h;
 }), null);
 __d('ErrorContextualDialogXUITheme', ['cx'], (function a(b, c, d, e, f, g, h) {
-    var i = { wrapperClassName: "_572t", arrowDimensions: { offset: 12, length: 22 } };
+    var i = {
+        wrapperClassName: "_572t",
+        arrowDimensions: {
+            offset: 12,
+            length: 22
+        }
+    };
     f.exports = i;
 }), null);

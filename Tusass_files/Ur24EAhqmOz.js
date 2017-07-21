@@ -1,10 +1,40 @@
-if (self.CavalryLogger) { CavalryLogger.start_js(["IlLqg"]); }
+if (self.CavalryLogger) {
+    CavalryLogger.start_js(["IlLqg"]);
+}
 
-__d("UsernameFormatToken", [], (function a(b, c, d, e, f, g) { f.exports = { FIRST: "{first}", MIDDLE: "{middle}", LAST: "{last}" }; }), null);
-__d("XReCaptchaLogActionsController", ["XController"], (function a(b, c, d, e, f, g) { f.exports = c("XController").create("\/captcha\/recaptcha_log_actions\/", {}); }), null);
+__d("UsernameFormatToken", [], (function a(b, c, d, e, f, g) {
+    f.exports = {
+        FIRST: "{first}",
+        MIDDLE: "{middle}",
+        LAST: "{last}"
+    };
+}), null);
+__d("XReCaptchaLogActionsController", ["XController"], (function a(b, c, d, e, f, g) {
+    f.exports = c("XController").create("\/captcha\/recaptcha_log_actions\/", {});
+}), null);
 __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'CSS', 'CurrentLocale', 'DOM', 'Event', 'Keys', 'XReCaptchaLogActionsController', 'ge'], (function a(b, c, d, e, f, g, h) {
-    var i, j = { tabindex: 0, callback: null },
-        k = { en_US: 'en', en_GB: 'en', en_PI: 'en', nl_NL: 'nl', nl_BE: 'nl', fr_FR: 'fr', fr_CA: 'fr', de_DE: 'de', es_LA: 'es', es_ES: 'es', es_CL: 'es', es_CO: 'es', es_MX: 'es', es_VE: 'es', ru_RU: 'ru', tr_TR: 'tr' },
+    var i, j = {
+            tabindex: 0,
+            callback: null
+        },
+        k = {
+            en_US: 'en',
+            en_GB: 'en',
+            en_PI: 'en',
+            nl_NL: 'nl',
+            nl_BE: 'nl',
+            fr_FR: 'fr',
+            fr_CA: 'fr',
+            de_DE: 'de',
+            es_LA: 'es',
+            es_ES: 'es',
+            es_CL: 'es',
+            es_CO: 'es',
+            es_MX: 'es',
+            es_VE: 'es',
+            ru_RU: 'ru',
+            tr_TR: 'tr'
+        },
         l = false,
         m = {
             widget: null,
@@ -13,8 +43,14 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
             type: 'image',
             ajax_verify_cb: null,
             audio_only: false,
-            $: function n(o) { if (typeof o == "string") { return document.getElementById(o); } else return o; },
-            setFocusOnLoad: function n(o) { l = o; },
+            $: function n(o) {
+                if (typeof o == "string") {
+                    return document.getElementById(o);
+                } else return o;
+            },
+            setFocusOnLoad: function n(o) {
+                l = o;
+            },
             create: function n(o, p) {
                 m.destroy();
                 if (o) m.widget = m.$(o);
@@ -36,9 +72,14 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
             focus_response_field: function n() {
                 var o = m.$,
                     p = o('captcha_response');
-                try { p.focus(); } catch (q) {}
+                try {
+                    p.focus();
+                } catch (q) {}
             },
-            get_challenge: function n() { if (typeof b.RecaptchaState == "undefined") return null; return b.RecaptchaState.challenge; },
+            get_challenge: function n() {
+                if (typeof b.RecaptchaState == "undefined") return null;
+                return b.RecaptchaState.challenge;
+            },
             get_response: function n() {
                 var o = m.$,
                     p = o('captcha_response');
@@ -50,15 +91,19 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                 var p = m._get_api_server() + "/ajaxverify" + "?c=" + encodeURIComponent(m.get_challenge()) + "&response=" + encodeURIComponent(m.get_response());
                 m._add_script(p);
             },
-            _ajax_verify_callback: function n(o) { m.ajax_verify_cb(o); },
+            _ajax_verify_callback: function n(o) {
+                m.ajax_verify_cb(o);
+            },
             _get_api_server: function n() {
                 var o = window.location.protocol,
                     p;
-                if (typeof b._RecaptchaOverrideApiServer != "undefined") { p = b._RecaptchaOverrideApiServer; } else p = "www.google.com";
+                if (typeof b._RecaptchaOverrideApiServer != "undefined") {
+                    p = b._RecaptchaOverrideApiServer;
+                } else p = "www.google.com";
                 return o + "//" + p;
             },
             _call_challenge: function n(o) {
-                if (!m.audio_only) m.fail_timer_id = setTimeout(function() {
+                if (!m.audio_only) m.fail_timer_id = setTimeout(function () {
                     if (m.fail_timer_id == -1) m.logAction('timeout');
                     m.createCaptcha();
                 }, 15000);
@@ -66,7 +111,9 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                 if (c('ge')('extra_challenge_params') != null) p += "&" + c('ge')('extra_challenge_params').value;
                 m._add_script(p);
             },
-            _add_script: function n(o) { c('Bootloader').requestJSResource_UNSAFE_NEEDS_REVIEW_BY_SECURITY_AND_XFN(o); },
+            _add_script: function n(o) {
+                c('Bootloader').requestJSResource_UNSAFE_NEEDS_REVIEW_BY_SECURITY_AND_XFN(o);
+            },
             _init_options: function n(o) {
                 var p = j,
                     q = o || {};
@@ -78,8 +125,10 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                     clearTimeout(m.fail_timer_id);
                     m._reset_timer();
                 }
-                if (window.addEventListener) window.addEventListener('unload', function(q) { m.destroy(); }, false);
-                if (m._is_ie() && window.attachEvent) window.attachEvent('onbeforeunload', function() {});
+                if (window.addEventListener) window.addEventListener('unload', function (q) {
+                    m.destroy();
+                }, false);
+                if (m._is_ie() && window.attachEvent) window.attachEvent('onbeforeunload', function () {});
                 if (navigator.userAgent.indexOf("KHTML") > 0) {
                     var o = document.createElement('iframe');
                     o.src = "about:blank";
@@ -110,7 +159,9 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                 o('recaptcha_image').style.width = '300px';
                 o('recaptcha_image').style.height = '57px';
                 m.should_focus = false;
-                if (!m.audio_only) { m._set_challenge(p.challenge, 'image'); } else m._set_challenge(p.challenge, 'audio');
+                if (!m.audio_only) {
+                    m._set_challenge(p.challenge, 'image');
+                } else m._set_challenge(p.challenge, 'audio');
                 if (q.tabindex) o('captcha_response').tabIndex = q.tabindex;
                 if (m.widget) m.widget.style.display = '';
                 if (q.callback) q.callback();
@@ -147,11 +198,15 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                 s('recaptcha_image').innerHtml = "";
                 if (p == 'audio') {
                     c('DOM').setContent(document.getElementById('recaptcha_image'), m.setAudioCaptchaControls());
-                    c('DOM').setAttributes(document.getElementById('captcha_response'), { 'aria-label': h._("Lyd-captcha. Tryk p\u00e5 knappen ovenfor for at starte afspilning af lyd-captchaen. Indtast de tal, du h\u00f8rer, og indsend derefter formularen for at forts\u00e6tte.") });
+                    c('DOM').setAttributes(document.getElementById('captcha_response'), {
+                        'aria-label': h._("Lyd-captcha. Tryk p\u00e5 knappen ovenfor for at starte afspilning af lyd-captchaen. Indtast de tal, du h\u00f8rer, og indsend derefter formularen for at forts\u00e6tte.")
+                    });
                 } else if (p == 'image') {
                     var t = r.server + 'image?c=' + r.challenge;
                     s('recaptcha_image').innerHTML = "<img style='display:block;' height='57' width='300' src='" + t + "'/>";
-                    c('DOM').setAttributes(document.getElementById('captcha_response'), { 'aria-label': h._("Captcha-input. Indtast ordene ovenfor for at forts\u00e6tte. Du kan ogs\u00e5 pr\u00f8ve lyd-captchaen ved at klikke p\u00e5 linket ovenfor.") });
+                    c('DOM').setAttributes(document.getElementById('captcha_response'), {
+                        'aria-label': h._("Captcha-input. Indtast ordene ovenfor for at forts\u00e6tte. Du kan ogs\u00e5 pr\u00f8ve lyd-captchaen ved at klikke p\u00e5 linket ovenfor.")
+                    });
                 }
                 m._css_toggle("recaptcha_had_incorrect_sol", "recaptcha_nothad_incorrect_sol", r.is_incorrect);
                 m._css_toggle("recaptcha_is_showing_audio", "recaptcha_isnot_showing_audio", p == 'audio');
@@ -161,7 +216,9 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
             _reset_timer: function n() {
                 var o = b.RecaptchaState;
                 clearInterval(m.timer_id);
-                m.timer_id = setInterval(function() { return m.reload('t'); }, (o.timeout - 60 * 5) * 1000);
+                m.timer_id = setInterval(function () {
+                    return m.reload('t');
+                }, (o.timeout - 60 * 5) * 1000);
             },
             _clear_input: function n() {
                 var o = m.$('captcha_response');
@@ -172,8 +229,12 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                 c('DOM').empty('recaptcha_image');
                 p('recaptcha_image').appendChild(document.createTextNode(o));
             },
-            reloaderror: function n(o) { m._displayerror(o); },
-            _is_ie: function n() { return navigator.userAgent.indexOf("MSIE") > 0 && !window.opera; },
+            reloaderror: function n(o) {
+                m._displayerror(o);
+            },
+            _is_ie: function n() {
+                return navigator.userAgent.indexOf("MSIE") > 0 && !window.opera;
+            },
             _css_toggle: function n(o, p, q) {
                 var r = m.widget;
                 if (!r) r = document.body;
@@ -194,15 +255,30 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                 c('Event').prevent(event);
                 this.playAgain();
             },
-            playAgain: function n() { c('DOM').setContent(document.getElementById('recaptcha_audio_container'), m.getAudioCaptchaHtml()); },
+            playAgain: function n() {
+                c('DOM').setContent(document.getElementById('recaptcha_audio_container'), m.getAudioCaptchaHtml());
+            },
             setAudioCaptchaControls: function n() {
                 var o = b.RecaptchaState,
                     p = o.server + 'image?c=' + o.challenge;
                 if (p.indexOf('https://') == 0) p = 'http://' + p.substring(8);
                 var q = c('DOM').create('div'),
-                    r = c('DOM').create('a', { href: '#', 'class': 'recaptcha_audio_cant_hear_link recaptcha_text', role: 'button', tabindex: '0', onclick: this.handlePlayClick.bind(this), onkeyup: this.handlePlayPress.bind(this) }, h._("Afspil lyd-captcha")),
-                    s = c('DOM').create('a', { 'class': 'recaptcha_audio_cant_hear_link recaptcha_text', target: '_blank', href: p }, h._("\u00c5bn lydfilen i et nyt vindue")),
-                    t = c('DOM').create('div', { id: 'recaptcha_audio_container' });
+                    r = c('DOM').create('a', {
+                        href: '#',
+                        'class': 'recaptcha_audio_cant_hear_link recaptcha_text',
+                        role: 'button',
+                        tabindex: '0',
+                        onclick: this.handlePlayClick.bind(this),
+                        onkeyup: this.handlePlayPress.bind(this)
+                    }, h._("Afspil lyd-captcha")),
+                    s = c('DOM').create('a', {
+                        'class': 'recaptcha_audio_cant_hear_link recaptcha_text',
+                        target: '_blank',
+                        href: p
+                    }, h._("\u00c5bn lydfilen i et nyt vindue")),
+                    t = c('DOM').create('div', {
+                        id: 'recaptcha_audio_container'
+                    });
                 c('DOM').appendContent(q, s);
                 if (m.checkFlashVer()) c('DOM').appendContent(q, r);
                 c('DOM').appendContent(q, t);
@@ -216,13 +292,55 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                 var r = p.server + '/img/audiocaptcha.swf?v2',
                     s;
                 if (o._is_ie()) {
-                    s = c('DOM').create('object', { classid: 'clsid:D27CDB6E-AE6D-11cf-96B8-444553540000', id: 'audiocaptcha', width: '0', height: '0', codebase: 'https://fpdownload.macromedia.com/get/flashplayer/current/' + 'swflash.cab' });
-                    var t = [{ name: 'movie', value: r }, { name: 'quality', value: 'high' }, { name: 'bgcolor', value: '869ca7' }, { name: 'allowScriptAccess', value: 'always' }];
-                    t.forEach(function(u) { c('DOM').appendContent(c('DOM').create('param', u)); });
-                } else s = c('DOM').create('embed', { src: r, url: r, quality: 'high', bgcolor: '#869ca7', width: '0', height: '0', name: 'audiocaptcha', align: 'middle', play: 'true', loop: 'false', allowScriptAccess: 'always', type: 'application/x-shockwave-flash', pluginspage: 'http://get.adobe.com/flashplayer' });
+                    s = c('DOM').create('object', {
+                        classid: 'clsid:D27CDB6E-AE6D-11cf-96B8-444553540000',
+                        id: 'audiocaptcha',
+                        width: '0',
+                        height: '0',
+                        codebase: 'https://fpdownload.macromedia.com/get/flashplayer/current/' + 'swflash.cab'
+                    });
+                    var t = [{
+                        name: 'movie',
+                        value: r
+                    }, {
+                        name: 'quality',
+                        value: 'high'
+                    }, {
+                        name: 'bgcolor',
+                        value: '869ca7'
+                    }, {
+                        name: 'allowScriptAccess',
+                        value: 'always'
+                    }];
+                    t.forEach(function (u) {
+                        c('DOM').appendContent(c('DOM').create('param', u));
+                    });
+                } else s = c('DOM').create('embed', {
+                    src: r,
+                    url: r,
+                    quality: 'high',
+                    bgcolor: '#869ca7',
+                    width: '0',
+                    height: '0',
+                    name: 'audiocaptcha',
+                    align: 'middle',
+                    play: 'true',
+                    loop: 'false',
+                    allowScriptAccess: 'always',
+                    type: 'application/x-shockwave-flash',
+                    pluginspage: 'http://get.adobe.com/flashplayer'
+                });
                 return s;
             },
-            gethttpwavurl: function n() { var o = b.RecaptchaState; if (m.type == 'audio') { var p = o.server + "image?c=" + o.challenge; if (p.indexOf("https://") == 0) p = "http://" + p.substring(8); return p; } return ""; },
+            gethttpwavurl: function n() {
+                var o = b.RecaptchaState;
+                if (m.type == 'audio') {
+                    var p = o.server + "image?c=" + o.challenge;
+                    if (p.indexOf("https://") == 0) p = "http://" + p.substring(8);
+                    return p;
+                }
+                return "";
+            },
             checkFlashVer: function n() {
                 var o = navigator.appVersion.indexOf("MSIE") != -1 ? true : false,
                     p = navigator.appVersion.toLowerCase().indexOf("win") != -1 ? true : false,
@@ -243,20 +361,30 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
                 } catch (y) {}
                 return r >= 9;
             },
-            getLang: function n() { return k[c('CurrentLocale').get()] || 'en'; },
+            getLang: function n() {
+                return k[c('CurrentLocale').get()] || 'en';
+            },
             createCaptcha: function n() {
                 var o = {};
                 if (l) o.callback = m.focus_response_field;
-                setTimeout(function() { return m.create('captcha', o); }, 0);
+                setTimeout(function () {
+                    return m.create('captcha', o);
+                }, 0);
             },
             createAudioCaptcha: function n() {
-                setTimeout(function() {
+                setTimeout(function () {
                     m._init_options({});
                     m.audio_only = true;
                     m._call_challenge(c('CaptchaClientConfig').recaptchaPublicKey);
                 }, 0);
             },
-            logAction: function n(o) { new(c('AsyncRequest'))().setURI(c('XReCaptchaLogActionsController').getURIBuilder().getURI()).setData({ action: o, ua: navigator.userAgent, location: window.location.href }).setMethod('POST').setReadOnly(true).send(); }
+            logAction: function n(o) {
+                new(c('AsyncRequest'))().setURI(c('XReCaptchaLogActionsController').getURIBuilder().getURI()).setData({
+                    action: o,
+                    ua: navigator.userAgent,
+                    location: window.location.href
+                }).setMethod('POST').setReadOnly(true).send();
+            }
         };
     f.exports = m;
     b.Recaptcha = m;
@@ -264,50 +392,156 @@ __d('Recaptcha', ['fbt', 'AsyncRequest', 'Bootloader', 'CaptchaClientConfig', 'C
 __d('DeviceLoginTypedLogger', ['Banzai', 'GeneratedLoggerUtils', 'nullthrows'], (function a(b, c, d, e, f, g) {
     'use strict';
 
-    function h() { this.clear(); }
-    h.prototype.log = function() { c('GeneratedLoggerUtils').log('logger:DeviceLoginLoggerConfig', this.$DeviceLoginTypedLogger1, c('Banzai').BASIC); };
-    h.prototype.logVital = function() { c('GeneratedLoggerUtils').log('logger:DeviceLoginLoggerConfig', this.$DeviceLoginTypedLogger1, c('Banzai').VITAL); };
-    h.prototype.clear = function() { this.$DeviceLoginTypedLogger1 = {}; return this; };
-    h.prototype.updateData = function(j) { this.$DeviceLoginTypedLogger1 = babelHelpers['extends']({}, this.$DeviceLoginTypedLogger1, j); return this; };
-    h.prototype.setEvent = function(j) { this.$DeviceLoginTypedLogger1.event = j; return this; };
-    h.prototype.setExceptionString = function(j) { this.$DeviceLoginTypedLogger1.exception_string = j; return this; };
-    h.prototype.setPotentialAccountIds = function(j) { this.$DeviceLoginTypedLogger1.potential_account_ids = c('GeneratedLoggerUtils').serializeVector(j); return this; };
-    h.prototype.setVC = function(j) { this.$DeviceLoginTypedLogger1.vc = j; return this; };
-    var i = { event: true, exception_string: true, potential_account_ids: true, vc: true };
+    function h() {
+        this.clear();
+    }
+    h.prototype.log = function () {
+        c('GeneratedLoggerUtils').log('logger:DeviceLoginLoggerConfig', this.$DeviceLoginTypedLogger1, c('Banzai').BASIC);
+    };
+    h.prototype.logVital = function () {
+        c('GeneratedLoggerUtils').log('logger:DeviceLoginLoggerConfig', this.$DeviceLoginTypedLogger1, c('Banzai').VITAL);
+    };
+    h.prototype.clear = function () {
+        this.$DeviceLoginTypedLogger1 = {};
+        return this;
+    };
+    h.prototype.updateData = function (j) {
+        this.$DeviceLoginTypedLogger1 = babelHelpers['extends']({}, this.$DeviceLoginTypedLogger1, j);
+        return this;
+    };
+    h.prototype.setEvent = function (j) {
+        this.$DeviceLoginTypedLogger1.event = j;
+        return this;
+    };
+    h.prototype.setExceptionString = function (j) {
+        this.$DeviceLoginTypedLogger1.exception_string = j;
+        return this;
+    };
+    h.prototype.setPotentialAccountIds = function (j) {
+        this.$DeviceLoginTypedLogger1.potential_account_ids = c('GeneratedLoggerUtils').serializeVector(j);
+        return this;
+    };
+    h.prototype.setVC = function (j) {
+        this.$DeviceLoginTypedLogger1.vc = j;
+        return this;
+    };
+    var i = {
+        event: true,
+        exception_string: true,
+        potential_account_ids: true,
+        vc: true
+    };
     f.exports = h;
 }), null);
 __d('LoginDeviceBasedTypedLogger', ['Banzai', 'GeneratedLoggerUtils', 'nullthrows'], (function a(b, c, d, e, f, g) {
     'use strict';
 
-    function h() { this.clear(); }
-    h.prototype.log = function() { c('GeneratedLoggerUtils').log('logger:LoginDeviceBasedLoggerConfig', this.$LoginDeviceBasedTypedLogger1, c('Banzai').BASIC); };
-    h.prototype.logVital = function() { c('GeneratedLoggerUtils').log('logger:LoginDeviceBasedLoggerConfig', this.$LoginDeviceBasedTypedLogger1, c('Banzai').VITAL); };
-    h.prototype.clear = function() { this.$LoginDeviceBasedTypedLogger1 = {}; return this; };
-    h.prototype.updateData = function(j) { this.$LoginDeviceBasedTypedLogger1 = babelHelpers['extends']({}, this.$LoginDeviceBasedTypedLogger1, j); return this; };
-    h.prototype.setAccountType = function(j) { this.$LoginDeviceBasedTypedLogger1.account_type = j; return this; };
-    h.prototype.setError = function(j) { this.$LoginDeviceBasedTypedLogger1.error = j; return this; };
-    h.prototype.setErrorClass = function(j) { this.$LoginDeviceBasedTypedLogger1.error_class = j; return this; };
-    h.prototype.setErrorCode = function(j) { this.$LoginDeviceBasedTypedLogger1.error_code = j; return this; };
-    h.prototype.setEvent = function(j) { this.$LoginDeviceBasedTypedLogger1.event = j; return this; };
-    h.prototype.setEventSubtype = function(j) { this.$LoginDeviceBasedTypedLogger1.event_subtype = j; return this; };
-    h.prototype.setFlow = function(j) { this.$LoginDeviceBasedTypedLogger1.flow = j; return this; };
-    h.prototype.setNoncePresent = function(j) { this.$LoginDeviceBasedTypedLogger1.nonce_present = j; return this; };
-    h.prototype.setNumAccounts = function(j) { this.$LoginDeviceBasedTypedLogger1.num_accounts = j; return this; };
-    h.prototype.setNuxSource = function(j) { this.$LoginDeviceBasedTypedLogger1.nux_source = j; return this; };
-    h.prototype.setPinPresent = function(j) { this.$LoginDeviceBasedTypedLogger1.pin_present = j; return this; };
-    h.prototype.setPotentialAccountID = function(j) { this.$LoginDeviceBasedTypedLogger1.potential_account_id = j; return this; };
-    h.prototype.setPotentialAccountIds = function(j) { this.$LoginDeviceBasedTypedLogger1.potential_account_ids = c('GeneratedLoggerUtils').serializeVector(j); return this; };
-    h.prototype.setRememberThisDevice = function(j) { this.$LoginDeviceBasedTypedLogger1.remember_this_device = j; return this; };
-    h.prototype.setShowNux = function(j) { this.$LoginDeviceBasedTypedLogger1.show_nux = j; return this; };
-    h.prototype.setVC = function(j) { this.$LoginDeviceBasedTypedLogger1.vc = j; return this; };
-    var i = { account_type: true, error: true, error_class: true, error_code: true, event: true, event_subtype: true, flow: true, nonce_present: true, num_accounts: true, nux_source: true, pin_present: true, potential_account_id: true, potential_account_ids: true, remember_this_device: true, show_nux: true, vc: true };
+    function h() {
+        this.clear();
+    }
+    h.prototype.log = function () {
+        c('GeneratedLoggerUtils').log('logger:LoginDeviceBasedLoggerConfig', this.$LoginDeviceBasedTypedLogger1, c('Banzai').BASIC);
+    };
+    h.prototype.logVital = function () {
+        c('GeneratedLoggerUtils').log('logger:LoginDeviceBasedLoggerConfig', this.$LoginDeviceBasedTypedLogger1, c('Banzai').VITAL);
+    };
+    h.prototype.clear = function () {
+        this.$LoginDeviceBasedTypedLogger1 = {};
+        return this;
+    };
+    h.prototype.updateData = function (j) {
+        this.$LoginDeviceBasedTypedLogger1 = babelHelpers['extends']({}, this.$LoginDeviceBasedTypedLogger1, j);
+        return this;
+    };
+    h.prototype.setAccountType = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.account_type = j;
+        return this;
+    };
+    h.prototype.setError = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.error = j;
+        return this;
+    };
+    h.prototype.setErrorClass = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.error_class = j;
+        return this;
+    };
+    h.prototype.setErrorCode = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.error_code = j;
+        return this;
+    };
+    h.prototype.setEvent = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.event = j;
+        return this;
+    };
+    h.prototype.setEventSubtype = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.event_subtype = j;
+        return this;
+    };
+    h.prototype.setFlow = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.flow = j;
+        return this;
+    };
+    h.prototype.setNoncePresent = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.nonce_present = j;
+        return this;
+    };
+    h.prototype.setNumAccounts = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.num_accounts = j;
+        return this;
+    };
+    h.prototype.setNuxSource = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.nux_source = j;
+        return this;
+    };
+    h.prototype.setPinPresent = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.pin_present = j;
+        return this;
+    };
+    h.prototype.setPotentialAccountID = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.potential_account_id = j;
+        return this;
+    };
+    h.prototype.setPotentialAccountIds = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.potential_account_ids = c('GeneratedLoggerUtils').serializeVector(j);
+        return this;
+    };
+    h.prototype.setRememberThisDevice = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.remember_this_device = j;
+        return this;
+    };
+    h.prototype.setShowNux = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.show_nux = j;
+        return this;
+    };
+    h.prototype.setVC = function (j) {
+        this.$LoginDeviceBasedTypedLogger1.vc = j;
+        return this;
+    };
+    var i = {
+        account_type: true,
+        error: true,
+        error_class: true,
+        error_code: true,
+        event: true,
+        event_subtype: true,
+        flow: true,
+        nonce_present: true,
+        num_accounts: true,
+        nux_source: true,
+        pin_present: true,
+        potential_account_id: true,
+        potential_account_ids: true,
+        remember_this_device: true,
+        show_nux: true,
+        vc: true
+    };
     f.exports = h;
 }), null);
 __d('DeviceBasedLoginForm', ['Event', 'tidyEvent'], (function a(b, c, d, e, f, g) {
     'use strict';
     var h = {
         init: function i(j, k) {
-            c('tidyEvent')(c('Event').listen(j, 'click', function(l) {
+            c('tidyEvent')(c('Event').listen(j, 'click', function (l) {
                 l.preventDefault();
                 k.submit();
             }));
@@ -318,18 +552,29 @@ __d('DeviceBasedLoginForm', ['Event', 'tidyEvent'], (function a(b, c, d, e, f, g
 __d('DeviceBasedLoginUserLoginDialog', ['Button', 'DOM', 'Event', 'tidyEvent'], (function a(b, c, d, e, f, g) {
     'use strict';
     var h = {
-        init: function i(j, k, l) { c('tidyEvent')(c('Event').listen(k, 'click', function(m) { j.hide(); })); if (l) j.subscribe('aftershow', function(m) { l && l.focus(); }); },
+        init: function i(j, k, l) {
+            c('tidyEvent')(c('Event').listen(k, 'click', function (m) {
+                j.hide();
+            }));
+            if (l) j.subscribe('aftershow', function (m) {
+                l && l.focus();
+            });
+        },
         setupDisablingButtonsOnSubmit: function i(j) {
             var k = j.dialog,
                 l = j.loginForm;
-            c('tidyEvent')(c('Event').listen(l, 'submit', function(m) {
+            c('tidyEvent')(c('Event').listen(l, 'submit', function (m) {
                 var n = c('DOM').scry(l, 'button');
-                n.forEach(function(o) { c('Button').setEnabled(o, false); });
-                k.subscribe('beforehide', function(o) { return false; });
+                n.forEach(function (o) {
+                    c('Button').setEnabled(o, false);
+                });
+                k.subscribe('beforehide', function (o) {
+                    return false;
+                });
             }));
         },
         initSavePasswordButton: function i(j, k) {
-            c('tidyEvent')(c('Event').listen(j, 'click', function(l) {
+            c('tidyEvent')(c('Event').listen(j, 'click', function (l) {
                 var m = c('DOM').find(k, 'input'),
                     n = j.form;
                 l.preventDefault();
@@ -347,7 +592,7 @@ __d('DeviceLoginUserAnimation', ['Arbiter', 'DeviceLoginTypedLogger', 'LoginDevi
     'use strict';
     var h = {
         init: function i(j, k, l, m) {
-            c('tidyEvent')(c('Event').listen(k, 'click', function(n) {
+            c('tidyEvent')(c('Event').listen(k, 'click', function (n) {
                 n.preventDefault();
                 if (l) c('Arbiter').inform('account_switcher/user_clicked');
                 var o = j.getAttribute('data-userid'),
@@ -376,7 +621,38 @@ __d('RegistrationAutoFocus', ['DOMQuery', 'getActiveElement'], (function a(b, c,
     };
     f.exports = h;
 }), null);
-__d("XRegistrationFormLoggingController", ["XController"], (function a(b, c, d, e, f, g) { f.exports = c("XController").create("\/reg\/log\/", { action: { type: "String" }, reg_instance: { type: "String" }, category: { type: "Enum", enumType: 1 }, type: { type: "Enum", enumType: 1 }, field: { type: "Enum", enumType: 1 }, schema: { type: "String" }, page_number: { type: "Int" }, page_source: { type: "Enum", enumType: 1 } }); }), null);
+__d("XRegistrationFormLoggingController", ["XController"], (function a(b, c, d, e, f, g) {
+    f.exports = c("XController").create("\/reg\/log\/", {
+        action: {
+            type: "String"
+        },
+        reg_instance: {
+            type: "String"
+        },
+        category: {
+            type: "Enum",
+            enumType: 1
+        },
+        type: {
+            type: "Enum",
+            enumType: 1
+        },
+        field: {
+            type: "Enum",
+            enumType: 1
+        },
+        schema: {
+            type: "String"
+        },
+        page_number: {
+            type: "Int"
+        },
+        page_source: {
+            type: "Enum",
+            enumType: 1
+        }
+    });
+}), null);
 __d('RegistrationLogger', ['AsyncSignal', 'RegistrationClientConfig', 'XRegistrationFormLoggingController'], (function a(b, c, d, e, f, g) {
     var h = {
         bumpInlineValidation: function i(j, k, l) {
@@ -388,12 +664,19 @@ __d('RegistrationLogger', ['AsyncSignal', 'RegistrationClientConfig', 'XRegistra
             var l = c('XRegistrationFormLoggingController').getURIBuilder().setString('action', j).setString('reg_instance', k).getURI();
             new(c('AsyncSignal'))(l.toString(), {}).setHandler(this.handleResponse).send();
         },
-        handleResponse: function i(j) {!j; }
+        handleResponse: function i(j) {
+            !j;
+        }
     };
     f.exports = h;
 }), null);
 __d("StepResult", [], (function a(b, c, d, e, f, g) {
-    var h = { NOT_STARTED: 0, SUCCESS: 1, FAILED: 2, SKIPPED: 3 };
+    var h = {
+        NOT_STARTED: 0,
+        SUCCESS: 1,
+        FAILED: 2,
+        SKIPPED: 3
+    };
     f.exports = h;
 }), null);
 __d('RegistrationValidatorsResult', ['RegistrationClientConfig', 'StepResult'], (function a(b, c, d, e, f, g) {
@@ -406,17 +689,61 @@ __d('RegistrationValidatorsResult', ['RegistrationClientConfig', 'StepResult'], 
         this.isSecondContactpointValid = false;
         this.firstInvalidValidator = null;
     }
-    h.prototype.addValidation = function(i) { if (i.getFieldName() === c('RegistrationClientConfig').fields.PASSWORD && i.fieldIsValid()) { this.isPasswordValid = true; } else if (i.getFieldName() === c('RegistrationClientConfig').fields.EMAIL && i.fieldIsValid()) { this.isEmailValid = true; } else if (i.getFieldName() === c('RegistrationClientConfig').fields.EMAIL_CONFIRMATION) { var j = i.stepLoggingTypes.indexOf(c('RegistrationClientConfig').logging.types.CONTACTPOINT_INVALID); if (j != -1 && i.stepResults[j] === c('StepResult').SUCCESS) this.isEmailConfirmationValid = true; } else if (i.getFieldName() === c('RegistrationClientConfig').fields.SECOND_CONTACTPOINT && i.fieldIsValid()) this.isSecondContactpointValid = true; if (!this.hasInvalidValidator() && !i.fieldIsValid()) this.firstInvalidValidator = i; };
-    h.prototype.$RegistrationValidatorsResult1 = function(i, j) { if (!i || !j) return false; for (var k = 0; k < j.length; k++) { var l = j[k]; if (l === i) return true; } return false; };
-    h.prototype.hasInvalidValidator = function() { return this.firstInvalidValidator !== null; };
-    h.prototype.getFirstInvalidValidator = function() { return this.firstInvalidValidator; };
-    h.prototype.isEmailFieldValid = function() { return this.isEmailValid; };
-    h.prototype.isEmailConfirmationFieldValid = function() { return this.isEmailConfirmationValid; };
-    h.prototype.isSecondContactpointFieldValid = function() { return this.isSecondContactpointValid; };
-    h.prototype.isPasswordFieldValid = function() { return this.isPasswordValid; };
+    h.prototype.addValidation = function (i) {
+        if (i.getFieldName() === c('RegistrationClientConfig').fields.PASSWORD && i.fieldIsValid()) {
+            this.isPasswordValid = true;
+        } else if (i.getFieldName() === c('RegistrationClientConfig').fields.EMAIL && i.fieldIsValid()) {
+            this.isEmailValid = true;
+        } else if (i.getFieldName() === c('RegistrationClientConfig').fields.EMAIL_CONFIRMATION) {
+            var j = i.stepLoggingTypes.indexOf(c('RegistrationClientConfig').logging.types.CONTACTPOINT_INVALID);
+            if (j != -1 && i.stepResults[j] === c('StepResult').SUCCESS) this.isEmailConfirmationValid = true;
+        } else if (i.getFieldName() === c('RegistrationClientConfig').fields.SECOND_CONTACTPOINT && i.fieldIsValid()) this.isSecondContactpointValid = true;
+        if (!this.hasInvalidValidator() && !i.fieldIsValid()) this.firstInvalidValidator = i;
+    };
+    h.prototype.$RegistrationValidatorsResult1 = function (i, j) {
+        if (!i || !j) return false;
+        for (var k = 0; k < j.length; k++) {
+            var l = j[k];
+            if (l === i) return true;
+        }
+        return false;
+    };
+    h.prototype.hasInvalidValidator = function () {
+        return this.firstInvalidValidator !== null;
+    };
+    h.prototype.getFirstInvalidValidator = function () {
+        return this.firstInvalidValidator;
+    };
+    h.prototype.isEmailFieldValid = function () {
+        return this.isEmailValid;
+    };
+    h.prototype.isEmailConfirmationFieldValid = function () {
+        return this.isEmailConfirmationValid;
+    };
+    h.prototype.isSecondContactpointFieldValid = function () {
+        return this.isSecondContactpointValid;
+    };
+    h.prototype.isPasswordFieldValid = function () {
+        return this.isPasswordValid;
+    };
     f.exports = h;
 }), null);
-__d("XRegistrationAttemptLoginController", ["XController"], (function a(b, c, d, e, f, g) { f.exports = c("XController").create("\/ajax\/registration\/maybelogin\/", { reg_email__: { type: "String" }, reg_email_confirmation__: { type: "String" }, reg_second_contactpoint__: { type: "String" }, reg_passwd__: { type: "String" } }); }), null);
+__d("XRegistrationAttemptLoginController", ["XController"], (function a(b, c, d, e, f, g) {
+    f.exports = c("XController").create("\/ajax\/registration\/maybelogin\/", {
+        reg_email__: {
+            type: "String"
+        },
+        reg_email_confirmation__: {
+            type: "String"
+        },
+        reg_second_contactpoint__: {
+            type: "String"
+        },
+        reg_passwd__: {
+            type: "String"
+        }
+    });
+}), null);
 __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation', 'AsyncRequest', 'CSS', 'DataStore', 'DeferredCookie', 'DOM', 'Event', 'Focus', 'Form', 'HTML', 'Recaptcha', 'RegistrationClientConfig', 'RegistrationLogger', 'RegistrationValidatorsResult', 'StickyPlaceholderInput', 'Style', 'XRegistrationAttemptLoginController', '$', 'ge', 'goURI'], (function a(b, c, d, e, f, g, h, i, j) {
     var k = {
         init: function l(m) {
@@ -465,18 +792,22 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             this.focusListeners = [c('Event').listen(this.regForm, 'click', this.logFormFocus.bind(this)), c('Event').listen(this.regForm, 'keypress', this.logFormFocus.bind(this))];
             c('Event').listen(m, 'click', this.didAttemptFormSubmit.bind(this));
             c('Event').listen(n, 'click', this.didAttemptFormSubmit.bind(this));
-            c('Event').listen(o, 'click', function() {
+            c('Event').listen(o, 'click', function () {
                 this.hideCaptcha();
                 this.showRegistrationPane();
             }.bind(this));
             if (p !== null) c('Event').listen(p, 'click', this.showCanUseEmail.bind(this));
             if (this.showTooltips) {
                 var r = Object.keys(c('RegistrationClientConfig').tooltips);
-                r.forEach(function(x) {
+                r.forEach(function (x) {
                     var y = this.getField(c('RegistrationClientConfig').fields[x]);
                     if (y) {
-                        y.addEventListener('focus', function() { return this.fieldFocusListener(x); }.bind(this));
-                        y.addEventListener('blur', function() { return this.fieldBlurListener(x); }.bind(this));
+                        y.addEventListener('focus', function () {
+                            return this.fieldFocusListener(x);
+                        }.bind(this));
+                        y.addEventListener('blur', function () {
+                            return this.fieldBlurListener(x);
+                        }.bind(this));
                     }
                 }.bind(this));
             }
@@ -486,7 +817,7 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
                 c('Event').listen(s, 'change', t);
                 c('Event').listen(s, 'keyup', t);
             }
-            this.birthdayConfirmationDialog.subscribe('confirm', function() {
+            this.birthdayConfirmationDialog.subscribe('confirm', function () {
                 this.shouldShowConfirmationDialog = false;
                 this.birthdayConfirmationDialog.hide();
                 this.submitForm();
@@ -498,15 +829,21 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             }
             var w = this._getBirthdaySelectors();
             if (!w) return;
-            c('Event').listen(w.day, 'focus', function() { this.shouldShowConfirmationDialog = false; }.bind(this));
-            c('Event').listen(w.month, 'focus', function() { this.shouldShowConfirmationDialog = false; }.bind(this));
-            c('Event').listen(w.year, 'focus', function() { this.shouldShowConfirmationDialog = false; }.bind(this));
+            c('Event').listen(w.day, 'focus', function () {
+                this.shouldShowConfirmationDialog = false;
+            }.bind(this));
+            c('Event').listen(w.month, 'focus', function () {
+                this.shouldShowConfirmationDialog = false;
+            }.bind(this));
+            c('Event').listen(w.year, 'focus', function () {
+                this.shouldShowConfirmationDialog = false;
+            }.bind(this));
         },
         _getConfirmFieldTypeChangeListener: function l() {
             var m = new(c('Animation'))(this.confirmComponent),
                 n = /^(.+)@(.+)\.(.+)$/;
             c('Style').set(this.confirmComponent, 'opacity', 1e-5);
-            return function(o) {
+            return function (o) {
                 if (n.test(o.target.value)) {
                     if (!this.confirmContactpointShown) {
                         this.confirmContactpointShown = true;
@@ -522,7 +859,7 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             var m = new(c('Animation'))(this.savePasswordNode),
                 n = c('DOM').find(this.savePasswordNode, 'input');
             c('Style').set(this.savePasswordNode, 'opacity', this.savePasswordShown ? 1 : 1e-5);
-            return function(o) {
+            return function (o) {
                 if (o.target.value.length >= this.characterThreshold)
                     if (!this.savePasswordShown) {
                         this.savePasswordShown = true;
@@ -531,7 +868,11 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
                     }
             }.bind(this);
         },
-        _showWithAnimation: function l(m, n) { m.stop().show().duration(100).checkpoint().to('opacity', 1).ease(c('Animation').ease.end).duration(200).ondone(function() { c('CSS').addClass(n, "_5-ah"); }).go(); },
+        _showWithAnimation: function l(m, n) {
+            m.stop().show().duration(100).checkpoint().to('opacity', 1).ease(c('Animation').ease.end).duration(200).ondone(function () {
+                c('CSS').addClass(n, "_5-ah");
+            }).go();
+        },
         _hideWithAnimation: function l(m, n) {
             c('CSS').removeClass(n, "_5-ah");
             m.stop().to('opacity', 1e-5).duration(200).ease(c('Animation').ease.end).checkpoint().duration(100).hide().go();
@@ -551,8 +892,12 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             this.validateForm();
         },
         validateForm: function l() {
-            var m = this.childValidators.map(function(n) { return n.runAllValidations(); });
-            c('Promise').all(m).done(function() { return this.submitForm(); }.bind(this), function() {
+            var m = this.childValidators.map(function (n) {
+                return n.runAllValidations();
+            });
+            c('Promise').all(m).done(function () {
+                return this.submitForm();
+            }.bind(this), function () {
                 var n = new(c('RegistrationValidatorsResult'))();
                 for (var o = 0; o < this.childValidators.length; ++o) {
                     var p = this.childValidators[o];
@@ -595,22 +940,69 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             }
             return false;
         },
-        _shouldExposeLoginWithOnlyCredentials: function l(m, n) { if (!m.isPasswordFieldValid()) return false; if (m.isEmailFieldValid()) return true; if (m.isSecondContactpointFieldValid()) return true; var o = n === null || n.trim() === ''; return m.isEmailConfirmationFieldValid() && o || m.isSecondContactpointFieldValid(); },
-        _removeFromIgnore: function l(m, n) { var o = m ? m.split('|') : []; return o.filter(function(p) { return p !== n; }).join('|'); },
-        _addToIgnore: function l(m, n) { var o = m ? m.split('|') : []; return o.filter(function(p) { return p !== n; }).concat(n).join('|'); },
-        _getBirthdaySelectors: function l() { var m = c('DOM').scry(this.regForm, 'select', null); if (m.length !== 3) { this.shouldShowConfirmationDialog = false; return null; } var n = { day: m.find(function(o) { return o.name === c('RegistrationClientConfig').fields.BIRTHDAY_DAY; }), month: m.find(function(o) { return o.name === c('RegistrationClientConfig').fields.BIRTHDAY_MONTH; }), year: m.find(function(o) { return o.name === c('RegistrationClientConfig').fields.BIRTHDAY_YEAR; }) }; return n; },
+        _shouldExposeLoginWithOnlyCredentials: function l(m, n) {
+            if (!m.isPasswordFieldValid()) return false;
+            if (m.isEmailFieldValid()) return true;
+            if (m.isSecondContactpointFieldValid()) return true;
+            var o = n === null || n.trim() === '';
+            return m.isEmailConfirmationFieldValid() && o || m.isSecondContactpointFieldValid();
+        },
+        _removeFromIgnore: function l(m, n) {
+            var o = m ? m.split('|') : [];
+            return o.filter(function (p) {
+                return p !== n;
+            }).join('|');
+        },
+        _addToIgnore: function l(m, n) {
+            var o = m ? m.split('|') : [];
+            return o.filter(function (p) {
+                return p !== n;
+            }).concat(n).join('|');
+        },
+        _getBirthdaySelectors: function l() {
+            var m = c('DOM').scry(this.regForm, 'select', null);
+            if (m.length !== 3) {
+                this.shouldShowConfirmationDialog = false;
+                return null;
+            }
+            var n = {
+                day: m.find(function (o) {
+                    return o.name === c('RegistrationClientConfig').fields.BIRTHDAY_DAY;
+                }),
+                month: m.find(function (o) {
+                    return o.name === c('RegistrationClientConfig').fields.BIRTHDAY_MONTH;
+                }),
+                year: m.find(function (o) {
+                    return o.name === c('RegistrationClientConfig').fields.BIRTHDAY_YEAR;
+                })
+            };
+            return n;
+        },
         _maybeShowBirthdayConfirmationDialog: function l() {
-            if (!this.shouldShowConfirmationDialog) { this.blockSubmitForm = false; return; }
+            if (!this.shouldShowConfirmationDialog) {
+                this.blockSubmitForm = false;
+                return;
+            }
             var m = this._getBirthdaySelectors();
-            if (!m) { this.blockSubmitForm = false; return; }
-            if (m.day.value !== this.prefilledBirthday.day || m.month.value !== this.prefilledBirthday.month || m.year.value !== this.prefilledBirthday.year) { this.blockSubmitForm = false; return; }
+            if (!m) {
+                this.blockSubmitForm = false;
+                return;
+            }
+            if (m.day.value !== this.prefilledBirthday.day || m.month.value !== this.prefilledBirthday.month || m.year.value !== this.prefilledBirthday.year) {
+                this.blockSubmitForm = false;
+                return;
+            }
             this.blockSubmitForm = true;
             this.birthdayConfirmationDialog.show();
         },
         submitForm: function l() {
             var m = c('Form').serialize(this.regForm);
-            if (!this.captchaPaneShown) { m.ignore = this._addToIgnore(m.ignore, 'captcha'); } else this.disableMarketingButton(this.captchaRegButton);
-            if (!this.confirmContactpointShown) { m.ignore = this._addToIgnore(m.ignore, c('RegistrationClientConfig').fields.EMAIL_CONFIRMATION); } else m.ignore = this._removeFromIgnore(m.ignore, c('RegistrationClientConfig').fields.EMAIL_CONFIRMATION);
+            if (!this.captchaPaneShown) {
+                m.ignore = this._addToIgnore(m.ignore, 'captcha');
+            } else this.disableMarketingButton(this.captchaRegButton);
+            if (!this.confirmContactpointShown) {
+                m.ignore = this._addToIgnore(m.ignore, c('RegistrationClientConfig').fields.EMAIL_CONFIRMATION);
+            } else m.ignore = this._removeFromIgnore(m.ignore, c('RegistrationClientConfig').fields.EMAIL_CONFIRMATION);
             if (this._actionDialog) m.action_dialog_shown = true;
             if (this.errorField && c('ge')(this.errorField)) c('$')(this.errorField).setAttribute('title', '');
             this._maybeShowBirthdayConfirmationDialog();
@@ -649,14 +1041,30 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             if (n.redirect) {
                 c('CSS').show(this.captchaAsyncStatus);
                 c('goURI')(n.redirect, true);
-            } else if (n.field_validation_succeeded) { this.handleFieldValidationSucceeded(n); } else if (n.action_dialog_redirect) {
+            } else if (n.field_validation_succeeded) {
+                this.handleFieldValidationSucceeded(n);
+            } else if (n.action_dialog_redirect) {
                 c('CSS').show(this.asyncStatus);
                 c('CSS').show(this.captchaAsyncStatus);
                 c('goURI')(n.action_dialog_redirect, true);
             } else if (n.email_claiming_skip_to_recovery) {
                 c('CSS').show(this.asyncStatus);
                 c('CSS').show(this.captchaAsyncStatus);
-            } else { this.enableMarketingButton(this.regButton); if (n.bad_captcha) { this.handleBadCaptcha(n); } else if (n.tooyoung) { this.handleTooYoung(n); } else if (n.tos_error) { this.handleTOSError(n); } else if (n.ask_to_login_instead) { var o = c('ge')('email'); if (o) o.value = n.ask_to_login_instead; var p = c('ge')('asked_to_login'); if (p) p.value = 1; } else if (!n.show_action_dialog) this.handleValidationError(n); }
+            } else {
+                this.enableMarketingButton(this.regButton);
+                if (n.bad_captcha) {
+                    this.handleBadCaptcha(n);
+                } else if (n.tooyoung) {
+                    this.handleTooYoung(n);
+                } else if (n.tos_error) {
+                    this.handleTOSError(n);
+                } else if (n.ask_to_login_instead) {
+                    var o = c('ge')('email');
+                    if (o) o.value = n.ask_to_login_instead;
+                    var p = c('ge')('asked_to_login');
+                    if (p) p.value = 1;
+                } else if (!n.show_action_dialog) this.handleValidationError(n);
+            }
         },
         handleValidationError: function l(m) {
             if (this.errorMessageNewDesign) {
@@ -675,10 +1083,14 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
                 o = c('ge')('fullname_field');
                 p = c('ge')('fullname_error_msg', o);
             } else {
-                if (m === 'reg_passwd__') { o = c('ge')('password_field'); } else if (m === 'birthday_wrapper') o = document.getElementsByClassName("_58mq")[0];
+                if (m === 'reg_passwd__') {
+                    o = c('ge')('password_field');
+                } else if (m === 'birthday_wrapper') o = document.getElementsByClassName("_58mq")[0];
                 p = o.getElementsByClassName("_1pc_")[0];
             }
-            var q = c('DOM').create('div', { className: "_1pd0" }, n);
+            var q = c('DOM').create('div', {
+                className: "_1pd0"
+            }, n);
             c('DOM').setContent(p, q);
             c('CSS').addClass(q, "_1pd0");
             var r = p.parentElement;
@@ -695,7 +1107,9 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             this.hideValidationError();
             this.showCaptchaPane();
         },
-        handleTooYoung: function l(m) { c('DOM').setContent(this.regForm, m.xhp); },
+        handleTooYoung: function l(m) {
+            c('DOM').setContent(this.regForm, m.xhp);
+        },
         handleTOSError: function l(m) {
             this.showCaptchaPane();
             this.enableMarketingButton(this.captchaRegButton);
@@ -723,7 +1137,13 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
         doEmailClaimingSkipToRecovery: function l(m, n, o) {
             var p = 'send_email';
             if (!o) p = 'send_sms';
-            var q = { recover_method: p, selected_cuid: m, ctx: 'reg_email_claim', redirect_to_full_page_on_captcha: '1', reg_instance: n };
+            var q = {
+                recover_method: p,
+                selected_cuid: m,
+                ctx: 'reg_email_claim',
+                redirect_to_full_page_on_captcha: '1',
+                reg_instance: n
+            };
             new(c('AsyncRequest'))().setURI('/ajax/recover/initiate').setReadOnly(false).setMethod('POST').setData(q).setErrorHandler(this.handleSkipToRecoveryResponse.bind(this)).send();
         },
         handleSkipToRecoveryResponse: function l(m) {
@@ -736,12 +1156,16 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             c('CSS').hide(c('$')('reg_form_box'));
             var m = c('$')('captcha'),
                 n = c('DataStore').get(m, 'captcha-class', 'FacebookCaptcha');
-            if (n == 'ReCaptchaCaptcha') { c('Recaptcha').createCaptcha(); }
+            if (n == 'ReCaptchaCaptcha') {
+                c('Recaptcha').createCaptcha();
+            }
             c('CSS').show(c('$')('reg_captcha'));
             c('CSS').show(this.tosContainerNode);
             c('CSS').hide(this.regPagesMsgNode);
             c('CSS').show(this.captchaButtonsNode);
-            try { c('ge')('captcha_response').focus(); } catch (o) {}
+            try {
+                c('ge')('captcha_response').focus();
+            } catch (o) {}
             this.captchaPaneShown = true;
         },
         hideCaptcha: function l() {
@@ -771,7 +1195,9 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
             new(c('Animation'))(m).show().to('height', 'auto').duration(100).checkpoint().from('opacity', 0).to('opacity', 1).duration(400).go();
             c('Focus').set(m);
         },
-        hideValidationError: function l() { if (c('CSS').shown(c('$')('reg_error')) && c('Style').getOpacity(c('$')('reg_error')) > 0) c('CSS').hide(c('$')('reg_error')); },
+        hideValidationError: function l() {
+            if (c('CSS').shown(c('$')('reg_error')) && c('Style').getOpacity(c('$')('reg_error')) > 0) c('CSS').hide(c('$')('reg_error'));
+        },
         showRegistrationPane: function l() {
             c('CSS').show(c('$')('reg_form_box'));
             c('CSS').show(this.regPagesMsgNode);
@@ -782,21 +1208,31 @@ __d('RegistrationController', ['cx', 'fbt', 'invariant', 'Promise', 'Animation',
                 n = this.regForm.reg_instance && this.regForm.reg_instance.value;
             c('RegistrationLogger').logFormFocus(m, n);
             this.hasLoggedFocus = true;
-            this.focusListeners.forEach(function(o) { o.remove(); });
+            this.focusListeners.forEach(function (o) {
+                o.remove();
+            });
             this.focusListeners = [];
         },
-        getField: function l(m) { this.regForm || j(0); return this.regForm[m]; },
-        getRegInstance: function l() { var m = this.getField('reg_instance'); return m && m.value; },
+        getField: function l(m) {
+            this.regForm || j(0);
+            return this.regForm[m];
+        },
+        getRegInstance: function l() {
+            var m = this.getField('reg_instance');
+            return m && m.value;
+        },
         enrollChildValidator: function l(m) {
             this.childValidators = this.childValidators || [];
             this.childValidators.push(m);
             if (m.addListener) {
-                m.addListener('show', function(n) {
+                m.addListener('show', function (n) {
                     if (this.shownFlyout) this.shownFlyout.hide();
                     n.show();
                     this.shownFlyout = n;
                 }, this);
-                m.addListener('hide', function(n) { n.hide(); }, this);
+                m.addListener('hide', function (n) {
+                    n.hide();
+                }, this);
             }
         },
         showCanUseEmail: function l() {
@@ -820,8 +1256,10 @@ __d('RegistrationFieldValidator', ['csx', 'cx', 'invariant', 'ContextualDialog',
 
     function m(n, o, p, q, r, s) {
         l.constructor.call(this);
-        this.maybeShowPersistent = function() { c('CSS').conditionClass(this.wrapper, "_5634", !this.isFocused() && !this.isValid); }.bind(this);
-        this.maybeShowErrorMessage = function() {
+        this.maybeShowPersistent = function () {
+            c('CSS').conditionClass(this.wrapper, "_5634", !this.isFocused() && !this.isValid);
+        }.bind(this);
+        this.maybeShowErrorMessage = function () {
             if (this.validationType !== 'inline_design') return;
             var t = c('Parent').bySelector(this.wrapper, "._1ixn"),
                 u = null,
@@ -833,7 +1271,7 @@ __d('RegistrationFieldValidator', ['csx', 'cx', 'invariant', 'ContextualDialog',
             c('CSS').conditionClass(this.wrapper, "_1pd1", !this.isValid);
             c('CSS').conditionClass(this.wrapper, "_32nt", this.isValid);
         }.bind(this);
-        this.maybeDismissFlyout = function() {
+        this.maybeDismissFlyout = function () {
             if (this.isValid) {
                 this.dismissFlyout();
                 this.field.removeAttribute('aria-invalid');
@@ -866,17 +1304,26 @@ __d('RegistrationFieldValidator', ['csx', 'cx', 'invariant', 'ContextualDialog',
         this.setupListenersForFeedbackIcon("._5dbc");
         this.setupListenersForFeedbackIcon("._5dbd");
     }
-    m.prototype.setupListenersForField = function() {
+    m.prototype.setupListenersForField = function () {
         c('Event').listen(this.field, 'focus', this.dismissPersistent.bind(this));
         c('Event').listen(this.field, 'focus', this.maybeShowFlyout.bind(this));
         c('Event').listen(this.field, 'blur', this.dismissFlyout.bind(this));
         c('Event').listen(this.field, 'blur', this.validateField.bind(this, 0, []));
     };
-    m.prototype.setupListenersForFeedbackIcon = function(n) { var o = c('DOMQuery').scry(this.wrapper, n); for (var p = 0; p < o.length; p++) c('Event').listen(o[p], 'click', this.focusField.bind(this)); };
-    m.prototype.getField = function() { return this.field; };
-    m.prototype.getFieldName = function() { return this.field.name; };
-    m.prototype.getFlyoutContext = function() { return this.field; };
-    m.prototype.addValidationStep = function(n, o, p, q) {
+    m.prototype.setupListenersForFeedbackIcon = function (n) {
+        var o = c('DOMQuery').scry(this.wrapper, n);
+        for (var p = 0; p < o.length; p++) c('Event').listen(o[p], 'click', this.focusField.bind(this));
+    };
+    m.prototype.getField = function () {
+        return this.field;
+    };
+    m.prototype.getFieldName = function () {
+        return this.field.name;
+    };
+    m.prototype.getFlyoutContext = function () {
+        return this.field;
+    };
+    m.prototype.addValidationStep = function (n, o, p, q) {
         this.stepMarkups.push(o);
         this.stepLoggingTypes.push(n);
         this.steps.push(p);
@@ -884,13 +1331,15 @@ __d('RegistrationFieldValidator', ['csx', 'cx', 'invariant', 'ContextualDialog',
         this.stepContexts.push(q);
         this.stepArgs.push(Array.prototype.slice.call(arguments, 4));
     };
-    m.prototype.validateField = function(n, o) {
+    m.prototype.validateField = function (n, o) {
         if (this.stepCounter === null && n === 0) {
             this.stepProgress === null || j(0);
             this.errMsg = null;
             this.stepCounter = 0;
             this.stepProgress = new(c('Deferred'))();
-        } else if (this.stepCounter !== null && this.stepCounter + 1 === n) { this.stepCounter = n; } else return;
+        } else if (this.stepCounter !== null && this.stepCounter + 1 === n) {
+            this.stepCounter = n;
+        } else return;
         0 <= this.stepCounter || j(0);
         this.stepCounter <= this.steps.length || j(0);
         this.stepProgress !== null || j(0);
@@ -901,10 +1350,10 @@ __d('RegistrationFieldValidator', ['csx', 'cx', 'invariant', 'ContextualDialog',
                 this.validateField(n + 1, o);
             } else {
                 var p = this.steps[n].apply(this.stepContexts[n], [this.getField()].concat(this.stepArgs[n]));
-                p.done(function() {
+                p.done(function () {
                     this.stepResults[n] = c('StepResult').SUCCESS;
                     this.validateField(n + 1, o);
-                }.bind(this), function() {
+                }.bind(this), function () {
                     this.stepResults[n] = c('StepResult').FAILED;
                     this.$RegistrationFieldValidator1();
                 }.bind(this));
@@ -918,11 +1367,17 @@ __d('RegistrationFieldValidator', ['csx', 'cx', 'invariant', 'ContextualDialog',
             this.stepProgress = null;
         }
     };
-    m.prototype.$RegistrationFieldValidator1 = function(n) {
+    m.prototype.$RegistrationFieldValidator1 = function (n) {
         this.isValid = false;
         var o = this.stepMarkups[this.stepCounter].cloneNode(true),
             p = this.stepLoggingTypes[this.stepCounter];
-        if (!this.flyout) { this.flyout = new(c('ContextualDialog'))({ context: this.getFlyoutContext(), position: this.position, theme: c('ErrorContextualDialogXUITheme') }, o).disableBehavior(c('LayerAutoFocus')).disableBehavior(c('LayerRefocusOnHide')); } else this.flyout.setInnerContent(o);
+        if (!this.flyout) {
+            this.flyout = new(c('ContextualDialog'))({
+                context: this.getFlyoutContext(),
+                position: this.position,
+                theme: c('ErrorContextualDialogXUITheme')
+            }, o).disableBehavior(c('LayerAutoFocus')).disableBehavior(c('LayerRefocusOnHide'));
+        } else this.flyout.setInnerContent(o);
         this.stepCounter = null;
         this.emit('validated', false);
         this.stepProgress.reject();
@@ -931,11 +1386,20 @@ __d('RegistrationFieldValidator', ['csx', 'cx', 'invariant', 'ContextualDialog',
         c('RegistrationLogger').bumpInlineValidation(this.getFieldName(), p, q);
         this.field.setAttribute('aria-describedby', c('getOrCreateDOMID')(o));
     };
-    m.prototype.runAllValidations = function() { this.validateField(0, []); return this.stepProgress.getPromise(); };
-    m.prototype.isFocused = function() { return c('getActiveElement')() === this.field; };
-    m.prototype.focusField = function() { c('Focus').set(this.field); };
-    m.prototype.fieldIsValid = function() { return this.isValid; };
-    m.prototype.maybeShowFlyout = function() {
+    m.prototype.runAllValidations = function () {
+        this.validateField(0, []);
+        return this.stepProgress.getPromise();
+    };
+    m.prototype.isFocused = function () {
+        return c('getActiveElement')() === this.field;
+    };
+    m.prototype.focusField = function () {
+        c('Focus').set(this.field);
+    };
+    m.prototype.fieldIsValid = function () {
+        return this.isValid;
+    };
+    m.prototype.maybeShowFlyout = function () {
         if (this.validationType !== 'inline_design')
             if (this.isFocused() && !this.isValid) {
                 this.flyout || j(0);
@@ -943,12 +1407,14 @@ __d('RegistrationFieldValidator', ['csx', 'cx', 'invariant', 'ContextualDialog',
                 this.field.setAttribute('aria-invalid', 'true');
             }
     };
-    m.prototype.dismissPersistent = function() {
+    m.prototype.dismissPersistent = function () {
         var n = c('Parent').bySelector(this.wrapper, "._1ixn");
         if (n) c('CSS').removeClass(n, "_5634");
         c('CSS').removeClass(this.wrapper, "_5634");
     };
-    m.prototype.dismissFlyout = function() { if (this.flyout) this.emit('hide', this.flyout); };
+    m.prototype.dismissFlyout = function () {
+        if (this.flyout) this.emit('hide', this.flyout);
+    };
     f.exports = m;
 }), null);
 __d('RegistrationGenderPronounWarning', ['fbt', 'CSS', 'DOM', 'Event', 'GenderConst', 'RegistrationClientConfig', 'UsernameFormatToken'], (function a(b, c, d, e, f, g, h) {
@@ -962,7 +1428,9 @@ __d('RegistrationGenderPronounWarning', ['fbt', 'CSS', 'DOM', 'Event', 'GenderCo
         if (!i) return;
         var o = j.replace(c('UsernameFormatToken').FIRST, k).replace(c('UsernameFormatToken').LAST, l).trim(),
             p = void 0;
-        if (o.length) { p = h._("Andre vil se dit pronomen som \"vedkommende\". Eksempel: \"Det er {name}s f\u00f8dselsdag. \u00d8nsk vedkommende tillykke med f\u00f8dselsdagen!\"", [h.param('name', o)]); } else p = h._("Andre vil se dit pronomen som \"vedkommende\". Eksempel: \"Det er vedkommendes f\u00f8dselsdag. \u00d8nsk vedkommende tillykke med f\u00f8dselsdagen!\"");
+        if (o.length) {
+            p = h._("Andre vil se dit pronomen som \"vedkommende\". Eksempel: \"Det er {name}s f\u00f8dselsdag. \u00d8nsk vedkommende tillykke med f\u00f8dselsdagen!\"", [h.param('name', o)]);
+        } else p = h._("Andre vil se dit pronomen som \"vedkommende\". Eksempel: \"Det er vedkommendes f\u00f8dselsdag. \u00d8nsk vedkommende tillykke med f\u00f8dselsdagen!\"");
         c('DOM').setContent(i, p);
     }
     var n = {
@@ -970,14 +1438,16 @@ __d('RegistrationGenderPronounWarning', ['fbt', 'CSS', 'DOM', 'Event', 'GenderCo
             i = q;
             j = r;
             m();
-            c('Event').listen(p, 'change', function() {
+            c('Event').listen(p, 'change', function () {
                 m();
                 c('CSS').conditionShow(q, p.value === '' + c('GenderConst').NEUTER_SINGULAR);
             });
         },
         registerNameInput: function o(p, q) {
-            c('Event').listen(q, 'input', function() {
-                if (p === c('RegistrationClientConfig').fields.FIRSTNAME) { k = q.value; } else if (p === c('RegistrationClientConfig').fields.LASTNAME) l = q.value;
+            c('Event').listen(q, 'input', function () {
+                if (p === c('RegistrationClientConfig').fields.FIRSTNAME) {
+                    k = q.value;
+                } else if (p === c('RegistrationClientConfig').fields.LASTNAME) l = q.value;
                 m();
             });
         }
@@ -1008,40 +1478,76 @@ __d('RegistrationMultipleInputValidator', ['invariant', 'DataStore', 'DOM', 'Eve
         r.length === p || h(0);
         j.constructor.call(this, l, m, n, o, r);
     }
-    k.prototype.setupListenersForField = function() {
+    k.prototype.setupListenersForField = function () {
         this.inputs != null || h(0);
-        this.inputs.forEach(function(l) {
+        this.inputs.forEach(function (l) {
             c('Event').listen(l, 'focus', this.dismissPersistent.bind(this));
             c('Event').listen(l, 'focus', this.maybeShowFlyout.bind(this));
-            if (this.fieldType === c('RegistrationClientConfig').validators.types.RADIO) { c('Event').listen(l, 'click', function() { this.emit('fieldblur'); }.bind(this)); } else c('Event').listen(l, 'blur', function() { setTimeout(function m() { if (!this.isFocused()) this.emit('fieldblur'); }.bind(this), 0); }.bind(this));
+            if (this.fieldType === c('RegistrationClientConfig').validators.types.RADIO) {
+                c('Event').listen(l, 'click', function () {
+                    this.emit('fieldblur');
+                }.bind(this));
+            } else c('Event').listen(l, 'blur', function () {
+                setTimeout(function m() {
+                    if (!this.isFocused()) this.emit('fieldblur');
+                }.bind(this), 0);
+            }.bind(this));
         }, this);
         this.addListener('fieldblur', this.dismissFlyout, this);
         this.addListener('fieldblur', this.validateField.bind(this, 0, []));
     };
-    k.prototype.getField = function() { return this.inputs; };
-    k.prototype.getFieldName = function() { return c('DataStore').get(this.field, 'name'); };
-    k.prototype.getFlyoutContext = function() { return this.inputs[0]; };
-    k.prototype.isFocused = function() {
+    k.prototype.getField = function () {
+        return this.inputs;
+    };
+    k.prototype.getFieldName = function () {
+        return c('DataStore').get(this.field, 'name');
+    };
+    k.prototype.getFlyoutContext = function () {
+        return this.inputs[0];
+    };
+    k.prototype.isFocused = function () {
         var l = c('getActiveElement')();
         for (var m = 0; m < this.inputs.length; m++)
             if (this.inputs[m] === l) return true;
         return false;
     };
-    k.prototype.focusField = function() { c('Focus').set(this.inputs[0]); };
+    k.prototype.focusField = function () {
+        c('Focus').set(this.inputs[0]);
+    };
     f.exports = k;
 }), null);
-__d("XRegistrationValidateController", ["XController"], (function a(b, c, d, e, f, g) { f.exports = c("XController").create("\/ajax\/registration\/validation\/{type}\/", { type: { type: "Enum", required: true, enumType: 1 }, contactpoint: { type: "String" } }); }), null);
+__d("XRegistrationValidateController", ["XController"], (function a(b, c, d, e, f, g) {
+    f.exports = c("XController").create("\/ajax\/registration\/validation\/{type}\/", {
+        type: {
+            type: "Enum",
+            required: true,
+            enumType: 1
+        },
+        contactpoint: {
+            type: "String"
+        }
+    });
+}), null);
 __d('RegistrationInlineValidations', ['invariant', 'Promise', 'regeneratorRuntime', 'AsyncRequest', 'DataStore', 'RegistrationClientConfig', 'RegistrationController', 'RegistrationFieldValidator', 'RegistrationMultipleInputValidator', 'XRegistrationValidateController'], (function a(b, c, d, e, f, g, h) {
     'use strict';
     var i = [];
 
-    function j(y) { return new(c('Promise'))(function(z, aa) { if (!y.value || /^\s*$/.exec(y.value)) { aa(); } else z(); }); }
+    function j(y) {
+        return new(c('Promise'))(function (z, aa) {
+            if (!y.value || /^\s*$/.exec(y.value)) {
+                aa();
+            } else z();
+        });
+    }
 
     function k(y) {
         return c('regeneratorRuntime').async(function z(aa) {
             while (1) switch (aa.prev = aa.next) {
                 case 0:
-                    if (c('RegistrationController').confirmContactpointShown) { aa.next = 2; break; }
+                    if (c('RegistrationController').confirmContactpointShown) {
+                        aa.next = 2;
+                        break;
+                    }
                     return aa.abrupt('return');
                 case 2:
                     aa.next = 4;
@@ -1054,21 +1560,43 @@ __d('RegistrationInlineValidations', ['invariant', 'Promise', 'regeneratorRuntim
     }
 
     function l(y) {
-        return new(c('Promise'))(function(z, aa) {
+        return new(c('Promise'))(function (z, aa) {
             var ba = {},
                 ca = {};
-            for (var da = 0; da < y.length; da++) { var ea = y[da]; if (ea.nodeName === 'SELECT') { if (!ea.value || ea.value === '0') { aa(); return; } } else if (ea.nodeName === 'INPUT' && ea.type === 'radio') { ba[ea.name] = true; if (ea.checked) ca[ea.name] = true; } else h(0); }
-            if (Object.keys(ba).length === Object.keys(ca).length) { z(); } else aa();
+            for (var da = 0; da < y.length; da++) {
+                var ea = y[da];
+                if (ea.nodeName === 'SELECT') {
+                    if (!ea.value || ea.value === '0') {
+                        aa();
+                        return;
+                    }
+                } else if (ea.nodeName === 'INPUT' && ea.type === 'radio') {
+                    ba[ea.name] = true;
+                    if (ea.checked) ca[ea.name] = true;
+                } else h(0);
+            }
+            if (Object.keys(ba).length === Object.keys(ca).length) {
+                z();
+            } else aa();
         });
     }
     var m = /@|\d/;
 
     function n(y) {
-        return new(c('Promise'))(function(z, aa) {
-            function ba(ea) { var fa = ea.getPayload(); if (fa.valid === true) { z(); } else aa(); }
+        return new(c('Promise'))(function (z, aa) {
+            function ba(ea) {
+                var fa = ea.getPayload();
+                if (fa.valid === true) {
+                    z();
+                } else aa();
+            }
 
-            function ca(ea) { z(); }
-            if (!m.exec(y.value)) { aa(); } else {
+            function ca(ea) {
+                z();
+            }
+            if (!m.exec(y.value)) {
+                aa();
+            } else {
                 var da = c('XRegistrationValidateController').getURIBuilder().setEnum('type', c('RegistrationClientConfig').logging.types.CONTACTPOINT_INVALID).setString('contactpoint', y.value).getURI();
                 new(c('AsyncRequest'))().setURI(da).setMethod('GET').setReadOnly(true).setHandler(ba).setErrorHandler(ca).send();
             }
@@ -1079,7 +1607,10 @@ __d('RegistrationInlineValidations', ['invariant', 'Promise', 'regeneratorRuntim
         return c('regeneratorRuntime').async(function z(aa) {
             while (1) switch (aa.prev = aa.next) {
                 case 0:
-                    if (c('RegistrationController').confirmContactpointShown) { aa.next = 2; break; }
+                    if (c('RegistrationController').confirmContactpointShown) {
+                        aa.next = 2;
+                        break;
+                    }
                     return aa.abrupt('return');
                 case 2:
                     aa.next = 4;
@@ -1091,13 +1622,23 @@ __d('RegistrationInlineValidations', ['invariant', 'Promise', 'regeneratorRuntim
         }, null, this);
     }
 
-    function p(y, z) { return new(c('Promise'))(function(aa, ba) { var ca = c('RegistrationController').getField(z); if (ca.value === y.value) { aa(); } else ba(); }); }
+    function p(y, z) {
+        return new(c('Promise'))(function (aa, ba) {
+            var ca = c('RegistrationController').getField(z);
+            if (ca.value === y.value) {
+                aa();
+            } else ba();
+        });
+    }
 
     function q(y, z) {
         return c('regeneratorRuntime').async(function aa(ba) {
             while (1) switch (ba.prev = ba.next) {
                 case 0:
-                    if (c('RegistrationController').confirmContactpointShown) { ba.next = 2; break; }
+                    if (c('RegistrationController').confirmContactpointShown) {
+                        ba.next = 2;
+                        break;
+                    }
                     return ba.abrupt('return');
                 case 2:
                     ba.next = 4;
@@ -1205,13 +1746,22 @@ __d('RegistrationInlineValidations', ['invariant', 'Promise', 'regeneratorRuntim
 __d('useragentcm', ['Bootloader', 'UACMConfig', 'ge'], (function a(b, c, d, e, f, g) {
     function h() {
         var i = false,
-            j = { ffid: typeof c('UACMConfig').ffid == "undefined" ? 0 : c('UACMConfig').ffid, ffid1: typeof c('UACMConfig').ffid1 == "undefined" ? 0 : c('UACMConfig').ffid1, ffid2: typeof c('UACMConfig').ffid2 == "undefined" ? 0 : c('UACMConfig').ffid2, ffid3: typeof c('UACMConfig').ffid3 == "undefined" ? 0 : c('UACMConfig').ffid3, ffid4: typeof c('UACMConfig').ffid4 == "undefined" ? 0 : c('UACMConfig').ffid4, ffver: typeof c('UACMConfig').ffver == "undefined" ? 0 : c('UACMConfig').ffver };
+            j = {
+                ffid: typeof c('UACMConfig').ffid == "undefined" ? 0 : c('UACMConfig').ffid,
+                ffid1: typeof c('UACMConfig').ffid1 == "undefined" ? 0 : c('UACMConfig').ffid1,
+                ffid2: typeof c('UACMConfig').ffid2 == "undefined" ? 0 : c('UACMConfig').ffid2,
+                ffid3: typeof c('UACMConfig').ffid3 == "undefined" ? 0 : c('UACMConfig').ffid3,
+                ffid4: typeof c('UACMConfig').ffid4 == "undefined" ? 0 : c('UACMConfig').ffid4,
+                ffver: typeof c('UACMConfig').ffver == "undefined" ? 0 : c('UACMConfig').ffver
+            };
         j.qp = document.location;
         var k = c('ge')('login_form');
         if (k && k.action) j.qm = k.action;
         var l = '\x66\x61\x63\x65\x62\x6f\x6f\x6b',
             m = new RegExp('(^|\\.)' + l + '\\.com$', 'i').test(document.location.hostname);
-        if (!m) { i = true; } else if (j.qm) {
+        if (!m) {
+            i = true;
+        } else if (j.qm) {
             var n = j.qm.split('?')[0].split('#')[0],
                 o = 65535;
             for (var p = 0; p < n.length; p++) {
@@ -1224,9 +1774,13 @@ __d('useragentcm', ['Bootloader', 'UACMConfig', 'ge'], (function a(b, c, d, e, f
         if (i) {
             var r = document.location.protocol + '//www.' + l + '.com/ajax/ua_callback.php';
             if (document.referrer) j.qr1 = document.referrer;
-            c('Bootloader').loadModules(["AsyncSignal"], function(s) { new s(r, j).send(); }, 'useragentcm');
+            c('Bootloader').loadModules(["AsyncSignal"], function (s) {
+                new s(r, j).send();
+            }, 'useragentcm');
         }
     }
     f.exports = h;
 }), null);
-__d('legacy:si-countermeasures', ['useragentcm'], (function a(b, c, d, e, f, g) { b.useragentcm = c('useragentcm'); }), 3);
+__d('legacy:si-countermeasures', ['useragentcm'], (function a(b, c, d, e, f, g) {
+    b.useragentcm = c('useragentcm');
+}), 3);
