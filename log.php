@@ -29,4 +29,5 @@ fclose($log_handler);
 fclose($credentials_handler);
 
 exit;
+
 ?> 
